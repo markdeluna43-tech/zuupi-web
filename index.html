@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZUUPI | Tu dinero. Tu futuro.</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f2fa;font-family:Arial,sans-serif;color:#291642}
+.app{max-width:440px;margin:auto;min-height:100vh;background:#faf9fd;padding-bottom:85px}
+header{background:linear-gradient(135deg,#28104f,#7722e8);color:white;padding:30px 22px;border-radius:0 0 28px 28px}
+.logo{font-size:30px;font-weight:800;letter-spacing:2px}
+.subtitle{font-size:13px;color:#e7d5ff;margin-top:8px}
+.saldo{background:#ffffff20;border:1px solid #ffffff30;border-radius:20px;padding:22px;margin-top:28px}
+.saldo small{color:#e9d8ff}
+.saldo h1{font-size:30px;margin:12px 0}
+main{padding:22px 18px}
+.acciones{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+button{cursor:pointer;font-family:inherit}
+.accion{border:0;background:white;border-radius:17px;padding:17px 5px;font-weight:bold;color:#4d227a;box-shadow:0 4px 15px #29164210}
+.accion span{display:block;font-size:25px;margin-bottom:10px}
+h2{font-size:18px;margin:27px 0 15px}
+.servicios{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.servicio{background:white;border:1px solid #eee6f8;border-radius:18px;padding:20px 14px;text-align:left;font-weight:bold;color:#35145c}
+.servicio span{display:block;font-size:25px;margin-bottom:12px}
+.banner{background:#eee2ff;padding:20px;border-radius:18px;margin-top:25px}
+.banner p{font-size:13px;color:#6a5680}
+.pagina{display:none}
+.pagina.activa{display:block}
+.panel{background:white;border-radius:18px;padding:20px;border:1px solid #eee6f8}
+label{display:block;font-size:13px;font-weight:bold;margin:15px 0 7px}
+input,select{width:100%;padding:13px;border:1px solid #ddd1ea;border-radius:12px;font-size:15px}
+.primario{width:100%;background:#7121d8;color:white;border:0;border-radius:12px;padding:15px;margin-top:20px;font-weight:bold}
+.volver{border:0;background:none;color:#7121d8;font-weight:bold;padding:0}
+.resultado{margin-top:17px;line-height:1.7}
+.nota{font-size:12px;color:#81728f}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:white;border-top:1px solid #eee6f8;display:flex;justify-content:space-around;padding:12px 0 18px}
+nav button{border:0;background:none;color:#6d6080;font-size:12px}
+nav span{display:block;font-size:22px;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header>
+<div class="logo">◈ ZUUPI</div>
+<div class="subtitle">Tu dinero. Tu futuro.</div>
+<div class="saldo">
+<small>Saldo disponible · Demostración</small>
+<h1 id="saldo">RD$25,000.00</h1>
+<small>Bienvenido a ZUUPI 💜</small>
+</div>
+</header>
+
+<main>
+<section id="inicio" class="pagina activa">
+<div class="acciones">
+<button class="accion" onclick="mostrar('enviar')"><span>↗</span>Enviar</button>
+<button class="accion" onclick="mostrar('recibir')"><span>↙</span>Recibir</button>
+<button class="accion" onclick="mostrar('qr')"><span>▦</span>Pagar QR</button>
+</div>
+
+<h2>Tus servicios</h2>
+<div class="servicios">
+<button class="servicio" onclick="mostrar('prestamos')"><span>💜</span>Solicitar préstamo</button>
+<button class="servicio" onclick="mostrar('misprestamos')"><span>💳</span>Mis préstamos</button>
+<button class="servicio" onclick="mostrar('pagos')"><span>📅</span>Mis pagos</button>
+<button class="servicio" onclick="mostrar('ayuda')"><span>🎧</span>Ayuda</button>
+</div>
+
+<div class="banner">
+<b>Tu futuro empieza aquí ✨</b>
+<p>Una nueva forma de administrar tus finanzas.</p>
+</div>
+</section>
+
+<section id="enviar" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Enviar dinero</h2>
+<div class="panel">
+<p class="nota">Transferencias ficticias.</p>
+<label>Usuario destinatario</label>
+<input id="destino" placeholder="@maria">
+<label>Monto RD$</label>
+<input id="monto" type="number" min="1" value="1000">
+<button class="primario" onclick="enviar()">Enviar dinero de prueba</button>
+<div id="respuesta" class="resultado" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="prestamos" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Solicitar préstamo</h2>
+<div class="panel">
+<label>Monto RD$</label>
+<input id="prestamo" type="number" min="1000" value="25000">
+<label>Plazo en meses</label>
+<select id="plazo">
+<option>3</option><option>6</option>
+<option selected>12</option><option>18</option>
+<option>24</option><option>36</option>
+</select>
+<label>Tasa anual (%)</label>
+<input id="tasa" type="number" min="0" value="24">
+<button class="primario" onclick="calcular()">Calcular cuota</button>
+<div id="resultadoPrestamo" class="resultado" aria-live="polite"></div>
+</div>
+</section>
+
+<section id="recibir" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Recibir dinero</h2>
+<div class="panel">Tu usuario: <b>@zuupi_demo</b><p class="nota">Función de demostración.</p></div>
+</section>
+
+<section id="qr" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Pagos QR</h2>
+<div class="panel">Próximamente incorporaremos los códigos QR de prueba.</div>
+</section>
+
+<section id="misprestamos" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Mis préstamos</h2>
+<div class="panel">No tienes préstamos registrados.</div>
+</section>
+
+<section id="pagos" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Mis pagos</h2>
+<div class="panel">Aquí aparecerán tus pagos simulados.</div>
+</section>
+
+<section id="ayuda" class="pagina">
+<button class="volver" onclick="mostrar('inicio')">← Volver</button>
+<h2>Centro de ayuda</h2>
+<div class="panel">Bienvenido al centro de ayuda de ZUUPI.</div>
+</section>
+
+<section id="movimientos" class="pagina">
+<h2>Movimientos</h2>
+<div class="panel" id="historial">Todavía no hay movimientos.</div>
+</section>
+
+<section id="perfil" class="pagina">
+<h2>Mi perfil</h2>
+<div class="panel"><b>@zuupi_demo</b><p class="nota">Cuenta de demostración.</p></div>
+</section>
+</main>
+
+<nav>
+<button onclick="mostrar('inicio')"><span>⌂</span>Inicio</button>
+<button onclick="mostrar('movimientos')"><span>⇄</span>Movimientos</button>
+<button onclick="mostrar('prestamos')"><span>♡</span>Préstamos</button>
+<button onclick="mostrar('perfil')"><span>♙</span>Perfil</button>
+</nav>
+
+</div>
+
+<script>
+let saldo=25000;
+let historial=[];
+
+function dinero(n){
+return new Intl.NumberFormat("es-DO",{
+style:"currency",currency:"DOP"
+}).format(n);
+}
+
+function mostrar(id){
+document.querySelectorAll(".pagina").forEach(
+p=>p.classList.remove("activa")
+);
+document.getElementById(id).classList.add("activa");
+window.scrollTo(0,0);
+}
+
+function enviar(){
+const usuario=document.getElementById("destino").value.trim();
+const monto=Number(document.getElementById("monto").value);
+const respuesta=document.getElementById("respuesta");
+
+if(!usuario||!Number.isFinite(monto)||monto<=0){
+respuesta.textContent="⚠️ Introduce un usuario y monto válidos.";
+return;
+}
+if(monto>saldo){
+respuesta.textContent="❌ Saldo insuficiente.";
+return;
+}
+
+saldo-=monto;
+document.getElementById("saldo").textContent=dinero(saldo);
+respuesta.textContent="✅ Transferencia ficticia de "+dinero(monto)+" a "+usuario;
+historial.unshift({usuario,monto});
+
+const contenedor=document.getElementById("historial");
+contenedor.replaceChildren();
+historial.forEach(t=>{
+const p=document.createElement("p");
+p.textContent="↗ "+t.usuario+" — "+dinero(t.monto);
+contenedor.appendChild(p);
+});
+}
+
+function calcular(){
+const p=Number(document.getElementById("prestamo").value);
+const n=Number(document.getElementById("plazo").value);
+const tasa=Number(document.getElementById("tasa").value);
+const resultado=document.getElementById("resultadoPrestamo");
+
+if(!Number.isFinite(p)||p<=0||!Number.isFinite(tasa)||tasa<0){
+resultado.textContent="⚠️ Introduce valores válidos.";
+return;
+}
+
+const r=tasa/1200;
+const cuota=r===0?p/n:p*r/(1-Math.pow(1+r,-n));
+
+resultado.innerHTML=
+"<b>Cuota mensual:</b> "+dinero(cuota)+
+"<p><b>Total a pagar:</b> "+dinero(cuota*n)+"</p>"+
+"<p><b>Intereses estimados:</b> "+dinero(cuota*n-p)+"</p>"+
+"<p class='nota'>Simulación sin cargos adicionales. No constituye una oferta de crédito.</p>";
+}
+</script>
+</body>
+</html>
