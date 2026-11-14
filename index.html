@@ -239,33 +239,3 @@ const zpOriginalTab=dashboardTab;
 dashboardTab=function(tab){if(tab==='actividad')tab='pagos';zpOriginalTab(tab);if(tab==='pagos')zpLoad();};
 </script></body>
 </html>
-<!--
-CONFIGURACIÓN ÚNICA DE SUPABASE (NO SE EJECUTA DESDE ESTA PÁGINA)
-Para activar el guardado de solicitudes, copia el SQL de abajo en Supabase > SQL Editor y ejecútalo una sola vez.
-Nunca pegues claves secretas en este HTML.
-
--- ZUUPI: ejecutar una sola vez en Supabase > SQL Editor.
--- Tabla de SOLICITUDES DE PRUEBA. No utilizar con datos financieros reales.
-create table if not exists public.loan_applications (
- id uuid primary key default gen_random_uuid(),
- user_id uuid not null references auth.users(id) on delete cascade,
- amount_dop numeric(12,2) not null check (amount_dop between 5000 and 50000),
- term_months integer not null check (term_months in (3,6,9,12,18)),
- annual_rate numeric(5,2) not null check (annual_rate between 0 and 100),
- payments_per_year integer not null check (payments_per_year in (12,24)),
- declared_province text not null check (char_length(declared_province) between 2 and 80),
- purpose text not null check (char_length(purpose) between 2 and 80),
- status text not null default 'pending' check (status in ('pending','under_review','approved_test','rejected_test')),
- created_at timestamptz not null default now()
-);
-create index if not exists loan_applications_user_created_idx on public.loan_applications(user_id,created_at desc);
-alter table public.loan_applications enable row level security;
-revoke all on public.loan_applications from anon;
-grant select, insert on public.loan_applications to authenticated;
-drop policy if exists "zuupi_select_own" on public.loan_applications;
-create policy "zuupi_select_own" on public.loan_applications for select to authenticated using ((select auth.uid()) = user_id);
-drop policy if exists "zuupi_insert_own" on public.loan_applications;
-create policy "zuupi_insert_own" on public.loan_applications for insert to authenticated with check ((select auth.uid()) = user_id and status = 'pending');
--- Sin políticas UPDATE/DELETE para clientes. No conceder acceso público a roles administrativos.
-
--->
