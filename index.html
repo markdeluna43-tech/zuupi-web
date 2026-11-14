@@ -24,7 +24,19 @@ section{padding:65px 0;scroll-margin-top:80px}h2{font-size:clamp(27px,3.3vw,39px
 <section id="beneficios"><div class="wrap"><h2>Tu dinero. Tu futuro.</h2><p class="sub">Descubre cómo funcionará una experiencia crediticia clara y sencilla.</p><div class="features"><div class="feature"><div class="emoji">⏱️</div><h3>Respuesta ágil</h3><p>Objetivo de respuesta de 24 a 48 horas con expediente completo.</p></div><div class="feature"><div class="emoji">📱</div><h3>Proceso digital</h3><p>Registro y solicitud desde el teléfono o computadora.</p></div><div class="feature"><div class="emoji">💜</div><h3>Montos flexibles</h3><p>De RD$5,000 a RD$50,000, sujetos a evaluación.</p></div><div class="feature"><div class="emoji">🛡️</div><h3>Verificación</h3><p>Documento y prueba biométrica en el futuro proceso real.</p></div></div></div></section>
 <section class="band"><div class="wrap"><h2>Préstamos para diferentes necesidades</h2><p class="sub">Cuatro categorías de financiamiento ilustrativas.</p><div class="categories"><div class="category"><strong>ZUUPI Mini</strong><b>RD$5,000–10,000</b><small>3 o 6 meses</small></div><div class="category"><strong>ZUUPI Flex</strong><b>RD$10,001–20,000</b><small>3, 6 o 9 meses</small></div><div class="category"><strong>ZUUPI Plus</strong><b>RD$20,001–35,000</b><small>6, 9 o 12 meses</small></div><div class="category"><strong>ZUUPI Max</strong><b>RD$35,001–50,000</b><small>9, 12 o 18 meses</small></div></div></div></section>
 <section id="simulador"><div class="wrap"><h2>Simula tu préstamo</h2><p class="sub">Calcula cuotas e intereses estimados antes de continuar.</p><div class="two"><div class="panel"><h3>Personaliza tu préstamo</h3><label for="monto">Monto solicitado</label><div class="amount" id="amountText">RD$25,000</div><input id="monto" type="range" min="5000" max="50000" step="1000" value="25000"><div class="range"><span>RD$5,000</span><span>RD$50,000</span></div><label for="tasa">Tasa de interés nominal anual (%) — editable</label><input id="tasa" type="number" min="0" max="100" step="0.5" value="24" inputmode="decimal"><label for="plazo">Plazo</label><select id="plazo"></select><label for="frecuencia">Frecuencia de pago</label><select id="frecuencia"><option value="12">Mensual</option><option value="24">Quincenal (dos pagos al mes)</option></select><div class="line"><span>Categoría</span><b id="categoria">—</b></div><div class="line"><span>Interés anual elegido</span><b id="tasaVisible">24%</b></div><p class="note">Tasa únicamente ilustrativa. Cálculo sobre saldo insoluto, sin comisiones ni seguros.</p></div><div class="panel"><h3>Resumen de tu préstamo</h3><div class="summary"><small id="cuotaLabel">Cuota mensual estimada</small><div class="payment" id="cuota">—</div><div class="line"><span>Capital</span><b id="capital">—</b></div><div class="line"><span>Intereses totales</span><b id="intereses">—</b></div><div class="line"><span>Total a pagar</span><b id="total">—</b></div><div class="line"><span>Número de cuotas</span><b id="numCuotas">—</b></div></div><button type="button" class="btn" style="width:100%;margin-top:18px" onclick="openTab('solicitud')">Comenzar solicitud →</button><p class="note">Esta simulación no constituye una oferta de crédito ni una aprobación. El cálculo usa cuotas niveladas sobre saldo insoluto, sin comisiones ni seguros. Las cuotas se muestran redondeadas; la última puede variar ligeramente.</p></div><div class="panel" style="margin-top:22px"><h3>Tabla de amortización</h3><p class="note">Desglose estimado de capital, interés y saldo en cada cuota.</p><div style="overflow-x:auto"><table id="amortizacion" style="width:100%;border-collapse:collapse;font-size:13px;text-align:right"><thead><tr><th>Cuota</th><th>Pago</th><th>Interés</th><th>Capital</th><th>Saldo</th></tr></thead><tbody id="amortBody"></tbody></table></div></div></div></section>
-<section id="clientes" style="background:#eee7fa"><div class="wrap"><h2>Explora ZUUPI</h2><p class="sub">Prueba cómo será el registro y el proceso de solicitud, sin ingresar información real.</p><div class="tabs" role="group" aria-label="Secciones de clientes"><button type="button" class="tab active" data-tab="registro" onclick="openTab('registro')">Crear cuenta</button><button type="button" class="tab" data-tab="solicitud" onclick="openTab('solicitud')">Solicitar préstamo</button><button type="button" class="tab" data-tab="estado" onclick="openTab('estado')">Mis solicitudes</button></div><div class="two"><div class="panel" id="registro"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Registro de clientes</h3><div class="progress" id="regProgress"></div><div class="step" id="regBody" aria-live="polite"></div><div class="actions"><button type="button" class="btn pale" onclick="regBack()">Anterior</button><button type="button" class="btn" id="regButton" onclick="regNext()">Continuar →</button></div><p class="note">No se crea una cuenta ni se guardan datos personales.</p></div><div class="panel hidden" id="solicitud"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Solicitud de préstamo</h3><div class="progress" id="loanProgress"></div><div class="step" id="loanBody" aria-live="polite"></div><div class="actions"><button type="button" class="btn pale" onclick="loanBack()">Anterior</button><button type="button" class="btn" id="loanButton" onclick="loanNext()">Continuar →</button></div><p class="note">No se activa la cámara, no se suben documentos y no se envía ninguna solicitud real.</p></div><div class="panel hidden" id="estado"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Mis solicitudes</h3><div class="step" id="statusBody" aria-live="polite"><strong>Sin solicitudes de prueba</strong><p>Completa el recorrido para ver un ejemplo de seguimiento.</p></div></div><div class="panel"><h3>¿Cómo funcionaría?</h3><div class="step"><strong>01 · Registro</strong><p>Crear cuenta y verificar contacto.</p><strong>02 · Solicitud</strong><p>Seleccionar monto, plazo e información financiera.</p><strong>03 · Identidad</strong><p>Documento, selfie y prueba de vida en un sistema seguro.</p><strong>04 · Evaluación</strong><p>Un oficial de crédito revisa el expediente.</p><strong>05 · Respuesta</strong><p>Objetivo de 24–48 horas con expediente completo.</p></div><p class="notice">ZUUPI es un prototipo público. El panel administrativo y los expedientes reales deberán alojarse en una plataforma privada con controles de acceso.</p></div></div></div></section>
+<section id="clientes" style="background:#eee7fa"><div class="wrap"><h2>Explora ZUUPI</h2><p class="sub">Prueba cómo será el registro y el proceso de solicitud, sin ingresar información real.</p><div class="tabs" role="group" aria-label="Secciones de clientes"><button type="button" class="tab active" data-tab="registro" onclick="openTab('registro')">Crear cuenta</button><button type="button" class="tab" data-tab="solicitud" onclick="openTab('solicitud')">Solicitar préstamo</button><button type="button" class="tab" data-tab="estado" onclick="openTab('estado')">Mis solicitudes</button></div><div class="two"><div class="panel" id="registro"><h3 id="authHeading">Crear cuenta en ZUUPI</h3>
+<div id="authLoggedOut">
+<form id="authForm" autocomplete="on">
+<div id="signupFields"><label for="authName">Nombre completo</label><input id="authName" type="text" autocomplete="name" maxlength="100" required><label for="authPhone">Teléfono</label><input id="authPhone" type="tel" autocomplete="tel" maxlength="25" required></div>
+<label for="authEmail">Correo electrónico</label><input id="authEmail" type="email" autocomplete="email" required>
+<label for="authPassword">Contraseña</label><input id="authPassword" type="password" autocomplete="new-password" minlength="12" required>
+<p class="note" id="passwordHelp">Mínimo 12 caracteres, con mayúscula, minúscula, número y símbolo.</p>
+<button type="submit" class="btn" id="authSubmit">Crear cuenta</button>
+</form><p class="note"><button type="button" id="authToggle" class="btn pale" style="margin-top:12px">Ya tengo cuenta · Iniciar sesión</button></p>
+</div>
+<div id="authLoggedIn" class="hidden"><div class="step"><strong>Sesión iniciada</strong><p id="authWelcome"></p></div><button type="button" class="btn pale" id="authLogout" style="margin-top:14px">Cerrar sesión</button></div>
+<p id="authMessage" class="note" role="status" aria-live="polite"></p>
+<p class="note">El registro crea una cuenta de acceso. Las solicitudes de préstamos continúan en modo demostración.</p></div><div class="panel hidden" id="solicitud"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Solicitud de préstamo</h3><div class="progress" id="loanProgress"></div><div class="step" id="loanBody" aria-live="polite"></div><div class="actions"><button type="button" class="btn pale" onclick="loanBack()">Anterior</button><button type="button" class="btn" id="loanButton" onclick="loanNext()">Continuar →</button></div><p class="note">No se activa la cámara, no se suben documentos y no se envía ninguna solicitud real.</p></div><div class="panel hidden" id="estado"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Mis solicitudes</h3><div class="step" id="statusBody" aria-live="polite"><strong>Sin solicitudes de prueba</strong><p>Completa el recorrido para ver un ejemplo de seguimiento.</p></div></div><div class="panel"><h3>¿Cómo funcionaría?</h3><div class="step"><strong>01 · Registro</strong><p>Crear cuenta y verificar contacto.</p><strong>02 · Solicitud</strong><p>Seleccionar monto, plazo e información financiera.</p><strong>03 · Identidad</strong><p>Documento, selfie y prueba de vida en un sistema seguro.</p><strong>04 · Evaluación</strong><p>Un oficial de crédito revisa el expediente.</p><strong>05 · Respuesta</strong><p>Objetivo de 24–48 horas con expediente completo.</p></div><p class="notice">ZUUPI es un prototipo público. El panel administrativo y los expedientes reales deberán alojarse en una plataforma privada con controles de acceso.</p></div></div></div></section>
 </main>
 <footer><div class="wrap"><strong>ZUUPI</strong><p>Tu dinero. Tu futuro.</p><p>Prototipo de demostración. No se reciben solicitudes, pagos ni documentos reales.</p></div></footer>
 <script>
@@ -68,16 +80,7 @@ function calculate(){
 function openTab(tab){for(const name of ["registro","solicitud","estado"]){el(name).classList.toggle("hidden",name!==tab);document.querySelector('[data-tab="'+name+'"]').classList.toggle("active",name===tab);}el("clientes").scrollIntoView({behavior:"smooth",block:"start"});}
 function renderProgress(id,step,count){el(id).replaceChildren(...Array.from({length:count},(_,i)=>{const bar=document.createElement("span");if(i<=step)bar.className="done";return bar;}));}
 function renderStep(id,heading,body){const box=el(id);box.replaceChildren();const title=document.createElement("strong");title.textContent=heading;const paragraph=document.createElement("p");paragraph.textContent=body;box.append(title,paragraph);}
-let regStep=0;const registration=[
-["Datos personales","En el servicio real se pedirían nombres, apellidos y fecha de nacimiento."],
-["Datos de contacto","El cliente proporcionaría teléfono y correo para recibir códigos de verificación."],
-["Seguridad","Se configurarían contraseña segura y autenticación adicional."],
-["Confirmación","El cliente revisaría las condiciones y el aviso de privacidad."],
-["Registro de prueba completado","Terminaste la demostración. No se creó ninguna cuenta real."]
-];
-function renderReg(){renderProgress("regProgress",regStep,registration.length);renderStep("regBody",registration[regStep][0],registration[regStep][1]);el("regButton").textContent=regStep===registration.length-1?"Reiniciar":"Continuar →";}
-function regNext(){regStep=regStep===registration.length-1?0:regStep+1;renderReg();}
-function regBack(){regStep=Math.max(0,regStep-1);renderReg();}
+// El registro ahora utiliza Supabase Auth; la simulación de préstamos permanece intacta.
 let loanStep=0;const loanSteps=[
 ["Condiciones del préstamo","Se usarían el monto y el plazo seleccionados en el simulador."],
 ["Información financiera","El cliente declararía ingresos, actividad laboral y obligaciones financieras."],
@@ -89,7 +92,7 @@ let loanStep=0;const loanSteps=[
 function renderLoan(){renderProgress("loanProgress",loanStep,loanSteps.length);renderStep("loanBody",loanSteps[loanStep][0],loanSteps[loanStep][1]);el("loanButton").textContent=loanStep===loanSteps.length-1?"Reiniciar":"Continuar →";}
 function loanNext(){if(loanStep===4){renderStep("statusBody","Solicitud ZUUPI-DEMO-001 · En evaluación (simulación)","Monto: "+money(Number(el("monto").value))+". Respuesta objetivo en el servicio futuro: 24–48 horas. No se ha enviado una solicitud real.");}loanStep=loanStep===loanSteps.length-1?0:loanStep+1;renderLoan();}
 function loanBack(){loanStep=Math.max(0,loanStep-1);renderLoan();}
-el("monto").addEventListener("input",updateAmount);el("plazo").addEventListener("change",calculate);el("frecuencia").addEventListener("change",calculate);el("tasa").addEventListener("input",calculate);updateAmount();renderReg();renderLoan();
+el("monto").addEventListener("input",updateAmount);el("plazo").addEventListener("change",calculate);el("frecuencia").addEventListener("change",calculate);el("tasa").addEventListener("input",calculate);updateAmount();renderLoan();
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -108,6 +111,89 @@ el("monto").addEventListener("input",updateAmount);el("plazo").addEventListener(
   );
 
   console.log("ZUUPI: cliente Supabase inicializado");
+  let authMode = "signup";
+  const authForm = document.getElementById("authForm");
+  const authMessage = document.getElementById("authMessage");
+  const authSubmit = document.getElementById("authSubmit");
+  const authPassword = document.getElementById("authPassword");
+  function setAuthMessage(message, isError = false) {
+    authMessage.textContent = message;
+    authMessage.style.color = isError ? "#a21d36" : "#4b2679";
+  }
+  function setAuthMode(mode) {
+    authMode = mode;
+    const signingUp = mode === "signup";
+    document.getElementById("authHeading").textContent = signingUp ? "Crear cuenta en ZUUPI" : "Iniciar sesión en ZUUPI";
+    document.getElementById("signupFields").classList.toggle("hidden", !signingUp);
+    document.getElementById("authName").required = signingUp;
+    document.getElementById("authPhone").required = signingUp;
+    authPassword.autocomplete = signingUp ? "new-password" : "current-password";
+    document.getElementById("passwordHelp").classList.toggle("hidden", !signingUp);
+    authSubmit.textContent = signingUp ? "Crear cuenta" : "Iniciar sesión";
+    document.getElementById("authToggle").textContent = signingUp ? "Ya tengo cuenta · Iniciar sesión" : "¿No tienes cuenta? · Crear cuenta";
+    setAuthMessage("");
+  }
+  document.getElementById("authToggle").addEventListener("click", () => setAuthMode(authMode === "signup" ? "login" : "signup"));
+  function showSession(session) {
+    const loggedIn = !!session?.user;
+    document.getElementById("authLoggedOut").classList.toggle("hidden", loggedIn);
+    document.getElementById("authLoggedIn").classList.toggle("hidden", !loggedIn);
+    if (loggedIn) {
+      const name = session.user.user_metadata?.full_name;
+      document.getElementById("authWelcome").textContent = (name ? "Hola, " + name + ". " : "") + "Tu cuenta está conectada con el correo " + session.user.email + ".";
+    }
+  }
+  authForm.addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!authForm.reportValidity()) return;
+    authSubmit.disabled = true;
+    authSubmit.textContent = "Procesando…";
+    setAuthMessage("");
+    try {
+      const email = document.getElementById("authEmail").value.trim();
+      const password = authPassword.value;
+      if (authMode === "signup") {
+        if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{12,}/.test(password)) {
+          throw new Error("La contraseña debe tener 12 caracteres como mínimo, mayúscula, minúscula, número y símbolo.");
+        }
+        const { data, error } = await zuupiSupabase.auth.signUp({
+          email, password,
+          options: {
+            emailRedirectTo: "https://markdeluna43-tech.github.io/zuupi-web/",
+            data: {
+              full_name: document.getElementById("authName").value.trim(),
+              phone: document.getElementById("authPhone").value.trim()
+            }
+          }
+        });
+        if (error) throw error;
+        authForm.reset();
+        setAuthMessage(data.session ? "Cuenta creada. Ya puedes usar tu sesión." : "Solicitud de registro recibida. Revisa tu correo para confirmar la cuenta. Si ya existe una cuenta con ese correo, usa Iniciar sesión.");
+        if (data.session) showSession(data.session);
+      } else {
+        const { data, error } = await zuupiSupabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        authForm.reset();
+        showSession(data.session);
+        setAuthMessage("Has iniciado sesión correctamente.");
+      }
+    } catch (error) {
+      setAuthMessage(error?.message || "No fue posible completar la operación. Inténtalo de nuevo.", true);
+    } finally {
+      authSubmit.disabled = false;
+      authSubmit.textContent = authMode === "signup" ? "Crear cuenta" : "Iniciar sesión";
+    }
+  });
+  document.getElementById("authLogout").addEventListener("click", async () => {
+    const { error } = await zuupiSupabase.auth.signOut();
+    if (error) setAuthMessage(error.message, true);
+    else { showSession(null); setAuthMode("login"); setAuthMessage("Sesión cerrada."); }
+  });
+  zuupiSupabase.auth.getSession().then(({ data, error }) => {
+    if (error) setAuthMessage("No se pudo recuperar la sesión.", true);
+    else showSession(data.session);
+  });
+  zuupiSupabase.auth.onAuthStateChange((_event, session) => showSession(session));
 </script>
 
 </body>
