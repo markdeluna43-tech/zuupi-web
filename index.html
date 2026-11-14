@@ -1,422 +1,95 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#120d30">
+<meta name="theme-color" content="#110c2b">
+<meta name="description" content="ZUUPI: demostración de plataforma digital de préstamos personales.">
 <title>ZUUPI | Tu dinero. Tu futuro.</title>
 <style>
-:root{
-  --dark:#120d30;
-  --purple:#8425e8;
-  --violet:#5721ad;
-  --light:#f7f5fc;
-  --text:#261b3b;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text)}
-button,input,select{font:inherit}
-button{cursor:pointer}
-a{text-decoration:none;color:inherit}
-.container{max-width:1150px;margin:auto;padding:0 22px}
-header{background:#120d30;color:white;position:sticky;top:0;z-index:10}
-nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo{font-size:32px;font-weight:900;font-style:italic;letter-spacing:-1px}
-.logo span{color:#c27aff}
-.links{display:flex;gap:18px;align-items:center}
-.links a{font-size:14px}
-.btn{border:0;border-radius:30px;padding:13px 22px;background:linear-gradient(110deg,#a22aff,#6320c4);color:white;font-weight:bold}
-.btn.white{background:white;color:#59219f}
-.btn.secondary{background:#eee5fc;color:#6124a8}
-.hero{background:radial-gradient(circle at 80% 30%,#51208a,transparent 45%),linear-gradient(120deg,#100c2c,#21134b);color:white;padding:75px 0}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:35px}
-.hero h1{font-size:clamp(39px,5vw,67px);line-height:1.08;margin:15px 0}
-.hero h1 em{font-style:normal;color:#c483ff}
-.hero p{font-size:18px;color:#ddd2ef;line-height:1.6}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
-.hero small{color:#d7b4ff}
-.phones{display:flex;justify-content:center;gap:12px}
-.phone{width:195px;height:390px;border:7px solid #070711;border-radius:34px;box-shadow:0 20px 40px #0008;position:relative;overflow:hidden}
-.phone:before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:75px;height:17px;background:#050509;border-radius:20px}
-.phone.splash{background:linear-gradient(150deg,#151038,#391276,#8127db);display:flex;flex-direction:column;justify-content:center;align-items:center;color:white}
-.big-z{font-size:105px;font-weight:900;font-style:italic;background:linear-gradient(#e2a6ff,#8322e8);background-clip:text;color:transparent}
-.phone.splash strong{font-size:37px;font-style:italic}
-.phone.splash p{text-align:center;font-size:12px;padding:10px}
-.phone.app{background:linear-gradient(#160e35 0 43%,#f7f4ff 43%);padding:38px 10px 12px}
-.phone.app h3{color:white;margin:0 0 10px;font-size:15px}
-.purple-card{background:linear-gradient(120deg,#9625f1,#5420a8);color:white;border-radius:13px;padding:15px}
-.purple-card strong{display:block;font-size:24px;margin:9px 0}
-.purple-card small{color:#e9d6ff}
-.phone-link{background:white;border-radius:10px;margin-top:10px;padding:13px 9px;font-size:11px;font-weight:bold}
-section{padding:65px 0}
-h2{font-size:clamp(28px,3vw,40px);margin:0 0 13px}
-.subtitle{color:#756b84;line-height:1.6}
-.features,.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:28px}
-.feature,.category,.panel{background:white;border:1px solid #e9e2f2;border-radius:20px;padding:23px;box-shadow:0 7px 25px #2610450b}
-.feature .icon{font-size:30px}
-.feature h3{margin:15px 0 8px}
-.feature p{color:#786f86;font-size:13px;line-height:1.6}
-.band{background:linear-gradient(115deg,#160d38,#542093);color:white}
-.band .subtitle{color:#e0d0f2}
-.category strong{color:#7128c4;display:block;margin-bottom:12px}
-.category b{display:block;color:#28143d;margin-bottom:10px}
-.category small{color:#71677d}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
-.panel h3{margin:0 0 20px}
-label{display:block;font-size:13px;font-weight:bold;margin:18px 0 9px}
-input,select{width:100%;padding:13px;border:1px solid #dcd0e9;border-radius:12px;background:white}
-input[type=range]{padding:0;accent-color:#8b29e6}
-.amount{font-size:31px;color:#7122bf;font-weight:900}
-.range{display:flex;justify-content:space-between;font-size:12px;color:#80758b}
-.summary{background:#f1e8fd;border-radius:16px;padding:19px}
-.payment{font-size:33px;font-weight:900;color:#6020ac;margin:12px 0 20px}
-.line{display:flex;justify-content:space-between;gap:12px;margin:15px 0;font-size:13px}
-.line span{color:#746b80}
-.line b{text-align:right}
-.note{font-size:12px;color:#766d83;line-height:1.7}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
-.tab{background:white;color:#6229a5;border:1px solid #d8c6ed;border-radius:30px;padding:11px 16px;font-weight:bold}
-.tab.active{background:#6520b6;color:white}
-.hidden{display:none}
-.step{background:#f3ecfc;border-radius:14px;padding:20px;line-height:1.7}
-.step strong{display:block;color:#59209b}
-.step p{color:#645b72}
-.progress{display:flex;gap:5px;margin:15px 0}
-.progress span{flex:1;height:6px;background:#e5d7f5;border-radius:10px}
-.progress span.done{background:#8c2bea}
-.notice{padding:14px;background:#fff5e4;border-radius:12px;font-size:12px;color:#785723;line-height:1.7}
-footer{background:#120d30;color:#c8b9db;padding:35px 0;font-size:13px}
-footer strong{font-size:25px;color:white}
-@media(max-width:850px){
-.hero-grid,.two{grid-template-columns:1fr}
-.features,.categories{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:520px){
-.links a{display:none}
-.hero{padding:45px 0}
-.phone{width:155px;height:325px}
-.big-z{font-size:80px}
-.phone.splash strong{font-size:29px}
-.phone.app{padding:35px 8px 10px}
-.purple-card strong{font-size:18px}
-.phone-link{padding:9px 6px}
-.features,.categories{gap:9px}
-.feature,.category{padding:16px}
-section{padding:45px 0}
-}
+:root{--navy:#110c2b;--purple:#7824dc;--ink:#251b39;--muted:#746a83;--bg:#f7f5fc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.wrap{max-width:1140px;margin:auto;padding:0 22px}
+header{background:var(--navy);color:white;position:sticky;top:0;z-index:20;border-bottom:1px solid #ffffff25}nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:30px;font-weight:900;font-style:italic;letter-spacing:-1px}.brand b{color:#bd79ff}.navlinks{display:flex;align-items:center;gap:18px}.navlinks a{font-size:14px}.btn{border:0;border-radius:100px;padding:13px 21px;font-weight:750;background:linear-gradient(110deg,#a02dff,#6021b9);color:white}.btn.white{background:white;color:#532096}.btn.pale{background:#eee3fb;color:#5d259b}.btn:focus-visible,.tab:focus-visible{outline:3px solid #d9a8ff;outline-offset:3px}
+.hero{background:radial-gradient(ellipse at 78% 28%,#57218c 0%,transparent 43%),linear-gradient(120deg,#100c2b,#211447);color:white;padding:70px 0}.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:25px}.kicker{font-size:12px;font-weight:800;letter-spacing:2px;color:#d5a6ff}.hero h1{font-size:clamp(39px,5.2vw,67px);line-height:1.07;letter-spacing:-2px;margin:16px 0}.hero h1 em{font-style:normal;color:#c68aff}.hero p{font-size:17px;line-height:1.7;color:#e0d5f0}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.trust{font-size:12px!important;color:#d2b6ed!important;margin-top:24px}
+.phones{display:flex;justify-content:center;gap:13px}.phone{position:relative;width:195px;height:385px;border:7px solid #080711;border-radius:34px;overflow:hidden;box-shadow:0 25px 40px #0007}.phone:before{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:70px;height:17px;border-radius:15px;background:#06060a;z-index:1}.splash{display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(145deg,#130d32,#7423d4);color:white}.bigz{font-size:115px;line-height:1;font-weight:1000;font-style:italic;color:#c37bff}.splash strong{font-size:33px;font-style:italic}.splash small{text-align:center;margin-top:26px}.app-phone{padding:36px 10px 12px;background:linear-gradient(#150e34 0 46%,#f8f6ff 46%)}.app-phone h3{color:white;font-size:14px;margin:0 0 12px}.mini-card{background:linear-gradient(120deg,#9926ec,#4f199d);border-radius:13px;padding:14px;color:white}.mini-card strong{display:block;font-size:23px;margin:9px 0}.mini-card small{font-size:10px}.mini-item{background:white;border-radius:10px;padding:13px 9px;margin-top:9px;font-size:11px;font-weight:700}
+section{padding:65px 0;scroll-margin-top:80px}h2{font-size:clamp(27px,3.3vw,39px);letter-spacing:-1px;margin:0 0 12px}.sub{color:var(--muted);line-height:1.6}.features,.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:25px}.feature,.category,.panel{background:white;border:1px solid #e9e2f3;border-radius:20px;padding:23px;box-shadow:0 8px 26px #24103d0a}.feature .emoji{font-size:29px}.feature h3{font-size:17px;margin:12px 0 8px}.feature p,.category small{color:var(--muted);font-size:13px;line-height:1.6}.band{background:linear-gradient(115deg,#160e37,#4d1a88);color:white}.band .sub{color:#d7c7ec}.category strong{display:block;color:#6d24bd;margin-bottom:10px}.category b{display:block;color:#25153b;margin-bottom:9px}.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}.panel h3{margin:0 0 16px;font-size:22px}label{display:block;font-size:13px;font-weight:700;margin:17px 0 8px}select,input{width:100%;border:1px solid #d9cde8;border-radius:12px;padding:12px;background:white;color:var(--ink)}input[type=range]{padding:0;accent-color:var(--purple)}.amount{font-size:31px;color:#7023bd;font-weight:850}.range{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.line{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin:15px 0}.line span{color:var(--muted)}.line b{text-align:right}.summary{background:#f1e8fc;border-radius:17px;padding:20px}.payment{font-size:32px;font-weight:850;color:#5e1ca5;margin:10px 0 19px}.note{font-size:12px;color:var(--muted);line-height:1.7}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}.tab{border:1px solid #d8c5ed;border-radius:30px;background:white;color:#61269f;padding:11px 16px;font-weight:750}.tab.active{background:#6420b2;color:white}.hidden{display:none!important}.step{background:#f4edfc;border-radius:14px;padding:20px;line-height:1.65}.step strong{display:block;color:#572096}.step p{margin-bottom:0;color:#5f556d}.progress{display:flex;gap:5px;margin-bottom:16px}.progress span{flex:1;height:6px;border-radius:10px;background:#e5d8f3}.progress span.done{background:#872ce3}.notice{background:#fff5e5;border-radius:12px;padding:13px;color:#785a2c;font-size:12px;line-height:1.6}.demo-pill{display:inline-block;background:#efe1ff;color:#6021a7;border-radius:30px;padding:5px 10px;font-size:11px;font-weight:800;margin-bottom:10px}#amortizacion th,#amortizacion td{padding:11px 8px;border-bottom:1px solid #e9e1f3;white-space:nowrap}#amortizacion th{background:#f1e8fc;color:#52238d}#amortizacion td:first-child,#amortizacion th:first-child{text-align:left}input:invalid{border-color:#b91c1c}footer{background:var(--navy);color:#c7b8dc;padding:32px 0;font-size:13px}footer strong{font-size:24px;color:white}
+@media(max-width:850px){.hero-grid,.two{grid-template-columns:1fr}.features,.categories{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.wrap{padding:0 16px}.navlinks a{display:none}.hero{padding:45px 0}.phone{width:155px;height:315px;border-width:5px}.bigz{font-size:83px}.splash strong{font-size:27px}.app-phone{padding:33px 7px 10px}.mini-card strong{font-size:17px}.mini-item{padding:9px 6px;font-size:9px}.feature,.category,.panel{padding:16px}.features,.categories{gap:9px}section{padding:45px 0}}
 </style>
 </head>
 <body>
-
-<header>
-<nav class="container">
-<a class="logo" href="#inicio"><span>Z</span>UUPI</a>
-<div class="links">
-<a href="#beneficios">Beneficios</a>
-<a href="#prestamos">Préstamos</a>
-<button class="btn" onclick="openTab('registro')">Crear cuenta</button>
-</div>
-</nav>
-</header>
-
-<div class="hero" id="inicio">
-<div class="container hero-grid">
-<div>
-<small>ZUUPI · FINANCIAMIENTO DIGITAL</small>
-<h1>Tu préstamo,<br><em>tu futuro.</em></h1>
-<p>Préstamos personales digitales desde RD$5,000 hasta RD$50,000. Una experiencia sencilla, moderna y transparente.</p>
-<div class="actions">
-<a class="btn white" href="#prestamos">Simular préstamo →</a>
-<button class="btn" onclick="openTab('registro')">Crear cuenta</button>
-</div>
-<p><small>✓ Proceso digital &nbsp; ✓ Evaluación humana &nbsp; ✓ Respuesta objetivo de 24 a 48 horas</small></p>
-</div>
-
-<div class="phones">
-<div class="phone splash">
-<div class="big-z">Z</div>
-<strong>ZUUPI</strong>
-<p>Tu dinero.<br>Tu futuro.</p>
-</div>
-<div class="phone app">
-<h3>Hola 👋</h3>
-<div class="purple-card">
-<small>Solicita hasta</small>
-<strong>RD$50,000</strong>
-<small>Sujeto a evaluación</small>
-</div>
-<div class="phone-link">▣ &nbsp; Solicitar préstamo →</div>
-<div class="phone-link">▤ &nbsp; Mis préstamos →</div>
-<div class="phone-link">▦ &nbsp; Mis pagos →</div>
-<div class="phone-link">♡ &nbsp; Ayuda →</div>
-</div>
-</div>
-</div>
-</div>
-
-<section id="beneficios">
-<div class="container">
-<h2>Tu dinero. Tu futuro.</h2>
-<p class="subtitle">Diseñamos una experiencia financiera fácil de entender.</p>
-<div class="features">
-<div class="feature"><div class="icon">⏱</div><h3>Respuesta ágil</h3><p>Objetivo de respuesta en 24 a 48 horas con expediente completo.</p></div>
-<div class="feature"><div class="icon">📱</div><h3>Proceso digital</h3><p>Registro y solicitud desde tu dispositivo.</p></div>
-<div class="feature"><div class="icon">💜</div><h3>Montos flexibles</h3><p>Préstamos entre RD$5,000 y RD$50,000.</p></div>
-<div class="feature"><div class="icon">🛡️</div><h3>Verificación</h3><p>Documento de identidad y biometría en el proceso de solicitud.</p></div>
-</div>
-</div>
-</section>
-
-<section class="band">
-<div class="container">
-<h2>Encuentra tu préstamo ideal</h2>
-<p class="subtitle">Cuatro categorías adaptadas a diferentes necesidades.</p>
-<div class="categories">
-<div class="category"><strong>ZUUPI Mini</strong><b>RD$5,000–10,000</b><small>3 o 6 meses</small></div>
-<div class="category"><strong>ZUUPI Flex</strong><b>RD$10,001–20,000</b><small>3, 6 o 9 meses</small></div>
-<div class="category"><strong>ZUUPI Plus</strong><b>RD$20,001–35,000</b><small>6, 9 o 12 meses</small></div>
-<div class="category"><strong>ZUUPI Max</strong><b>RD$35,001–50,000</b><small>9, 12 o 18 meses</small></div>
-</div>
-</div>
-</section>
-
-<section id="prestamos">
-<div class="container">
-<h2>Simula tu préstamo</h2>
-<p class="subtitle">Conoce tu cuota y los intereses estimados antes de solicitarlo.</p>
-<div class="two">
-<div class="panel">
-<h3>Personaliza tu préstamo</h3>
-<label for="monto">Monto solicitado</label>
-<div class="amount" id="amountText">RD$25,000</div>
-<input id="monto" type="range" min="5000" max="50000" step="1000" value="25000">
-<div class="range"><span>RD$5,000</span><span>RD$50,000</span></div>
-<label for="plazo">Plazo</label>
-<select id="plazo"></select>
-<label for="frecuencia">Frecuencia de pago</label>
-<select id="frecuencia">
-<option value="12">Mensual</option>
-<option value="24">Quincenal (2 pagos por mes)</option>
-</select>
-<div class="line"><span>Categoría</span><b id="categoria"></b></div>
-<div class="line"><span>Tasa nominal anual ilustrativa</span><b>24%</b></div>
-<p class="note">Intereses sobre saldo insoluto. La tasa es únicamente un ejemplo y no representa una oferta real.</p>
-</div>
-
-<div class="panel">
-<h3>Resumen del préstamo</h3>
-<div class="summary">
-<small id="cuotaLabel">Cuota mensual estimada</small>
-<div class="payment" id="cuota"></div>
-<div class="line"><span>Capital</span><b id="capital"></b></div>
-<div class="line"><span>Intereses</span><b id="intereses"></b></div>
-<div class="line"><span>Total a pagar</span><b id="total"></b></div>
-</div>
-<button class="btn" style="width:100%;margin-top:20px" onclick="openTab('solicitud')">Solicitar préstamo →</button>
-<p class="note">No incluye comisiones, seguros ni otros cargos. Sujeto a evaluación crediticia.</p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="clientes" style="background:#eee7fa">
-<div class="container">
-<h2>Bienvenido a ZUUPI</h2>
-<p class="subtitle">Explora cómo funcionarán el registro y las solicitudes de nuestros clientes.</p>
-
-<div class="tabs">
-<button class="tab active" data-tab="registro" onclick="openTab('registro')">Crear cuenta</button>
-<button class="tab" data-tab="solicitud" onclick="openTab('solicitud')">Solicitar préstamo</button>
-<button class="tab" data-tab="estado" onclick="openTab('estado')">Mis solicitudes</button>
-</div>
-
-<div class="two">
-<div class="panel" id="registro">
-<h3>Registro de clientes</h3>
-<div class="progress" id="regProgress"></div>
-<div class="step" id="regBody"></div>
-<div class="actions">
-<button class="btn secondary" onclick="regBack()">Anterior</button>
-<button class="btn" onclick="regNext()" id="regButton">Continuar →</button>
-</div>
-<p class="note">Demostración del registro. No solicita ni almacena datos personales reales.</p>
-</div>
-
-<div class="panel hidden" id="solicitud">
-<h3>Solicitud de préstamo</h3>
-<div class="progress" id="loanProgress"></div>
-<div class="step" id="loanBody"></div>
-<div class="actions">
-<button class="btn secondary" onclick="loanBack()">Anterior</button>
-<button class="btn" onclick="loanNext()" id="loanButton">Continuar →</button>
-</div>
-<p class="note">La verificación de identidad y biometría es ilustrativa. No se activa la cámara ni se reciben documentos.</p>
-</div>
-
-<div class="panel hidden" id="estado">
-<h3>Mis solicitudes</h3>
-<div class="step" id="statusBody">
-<strong>No tienes solicitudes de prueba.</strong>
-<p>Completa el recorrido para visualizar un ejemplo.</p>
-</div>
-</div>
-
-<div class="panel">
-<h3>¿Cómo funciona ZUUPI?</h3>
-<div class="step">
-<strong>1. Registro</strong>
-<p>El cliente crea su perfil.</p>
-<strong>2. Solicitud</strong>
-<p>Selecciona monto, plazo y completa sus datos financieros.</p>
-<strong>3. Identidad</strong>
-<p>Presenta su documento y realiza la prueba biométrica.</p>
-<strong>4. Evaluación</strong>
-<p>Un oficial de crédito revisa la solicitud.</p>
-<strong>5. Respuesta</strong>
-<p>Objetivo de 24 a 48 horas con expediente completo.</p>
-</div>
-<p class="notice">ZUUPI es actualmente un prototipo. No procesa préstamos reales. El panel administrativo será una plataforma privada independiente.</p>
-</div>
-</div>
-</div>
-</section>
-
-<footer>
-<div class="container">
-<strong>ZUUPI</strong>
-<p>Tu dinero. Tu futuro.</p>
-<p>Prototipo de plataforma financiera digital. No se reciben solicitudes ni documentos reales.</p>
-</div>
-</footer>
-
+<header><nav class="wrap"><a class="brand" href="#inicio"><b>Z</b>UUPI</a><div class="navlinks"><a href="#beneficios">Beneficios</a><a href="#simulador">Préstamos</a><button type="button" class="btn" onclick="openTab('registro')">Crear cuenta</button></div></nav></header>
+<main>
+<div class="hero" id="inicio"><div class="wrap hero-grid"><div><div class="kicker">ZUUPI · FINANCIAMIENTO DIGITAL</div><h1>Tu préstamo,<br><em>tu futuro.</em></h1><p>Una experiencia moderna para explorar préstamos personales desde RD$5,000 hasta RD$50,000.</p><div class="actions"><a class="btn white" href="#simulador">Simular préstamo →</a><button type="button" class="btn" onclick="openTab('registro')">Crear cuenta</button></div><p class="trust">✓ Proceso digital &nbsp; ✓ Evaluación humana &nbsp; ✓ Respuesta objetivo: 24–48 horas</p></div><div class="phones" aria-label="Vista ilustrativa de ZUUPI"><div class="phone splash"><div class="bigz">Z</div><strong>ZUUPI</strong><small>Tu dinero.<br>Tu futuro.</small></div><div class="phone app-phone"><h3>Hola 👋</h3><div class="mini-card"><small>Solicita hasta</small><strong>RD$50,000</strong><small>Sujeto a evaluación</small></div><div class="mini-item">▣ &nbsp; Solicitar préstamo →</div><div class="mini-item">▤ &nbsp; Mis préstamos →</div><div class="mini-item">▦ &nbsp; Mis pagos →</div><div class="mini-item">♡ &nbsp; Ayuda →</div></div></div></div></div>
+<section id="beneficios"><div class="wrap"><h2>Tu dinero. Tu futuro.</h2><p class="sub">Descubre cómo funcionará una experiencia crediticia clara y sencilla.</p><div class="features"><div class="feature"><div class="emoji">⏱️</div><h3>Respuesta ágil</h3><p>Objetivo de respuesta de 24 a 48 horas con expediente completo.</p></div><div class="feature"><div class="emoji">📱</div><h3>Proceso digital</h3><p>Registro y solicitud desde el teléfono o computadora.</p></div><div class="feature"><div class="emoji">💜</div><h3>Montos flexibles</h3><p>De RD$5,000 a RD$50,000, sujetos a evaluación.</p></div><div class="feature"><div class="emoji">🛡️</div><h3>Verificación</h3><p>Documento y prueba biométrica en el futuro proceso real.</p></div></div></div></section>
+<section class="band"><div class="wrap"><h2>Préstamos para diferentes necesidades</h2><p class="sub">Cuatro categorías de financiamiento ilustrativas.</p><div class="categories"><div class="category"><strong>ZUUPI Mini</strong><b>RD$5,000–10,000</b><small>3 o 6 meses</small></div><div class="category"><strong>ZUUPI Flex</strong><b>RD$10,001–20,000</b><small>3, 6 o 9 meses</small></div><div class="category"><strong>ZUUPI Plus</strong><b>RD$20,001–35,000</b><small>6, 9 o 12 meses</small></div><div class="category"><strong>ZUUPI Max</strong><b>RD$35,001–50,000</b><small>9, 12 o 18 meses</small></div></div></div></section>
+<section id="simulador"><div class="wrap"><h2>Simula tu préstamo</h2><p class="sub">Calcula cuotas e intereses estimados antes de continuar.</p><div class="two"><div class="panel"><h3>Personaliza tu préstamo</h3><label for="monto">Monto solicitado</label><div class="amount" id="amountText">RD$25,000</div><input id="monto" type="range" min="5000" max="50000" step="1000" value="25000"><div class="range"><span>RD$5,000</span><span>RD$50,000</span></div><label for="tasa">Tasa de interés nominal anual (%) — editable</label><input id="tasa" type="number" min="0" max="100" step="0.5" value="24" inputmode="decimal"><label for="plazo">Plazo</label><select id="plazo"></select><label for="frecuencia">Frecuencia de pago</label><select id="frecuencia"><option value="12">Mensual</option><option value="24">Quincenal (dos pagos al mes)</option></select><div class="line"><span>Categoría</span><b id="categoria">—</b></div><div class="line"><span>Interés anual elegido</span><b id="tasaVisible">24%</b></div><p class="note">Tasa únicamente ilustrativa. Cálculo sobre saldo insoluto, sin comisiones ni seguros.</p></div><div class="panel"><h3>Resumen de tu préstamo</h3><div class="summary"><small id="cuotaLabel">Cuota mensual estimada</small><div class="payment" id="cuota">—</div><div class="line"><span>Capital</span><b id="capital">—</b></div><div class="line"><span>Intereses totales</span><b id="intereses">—</b></div><div class="line"><span>Total a pagar</span><b id="total">—</b></div><div class="line"><span>Número de cuotas</span><b id="numCuotas">—</b></div></div><button type="button" class="btn" style="width:100%;margin-top:18px" onclick="openTab('solicitud')">Comenzar solicitud →</button><p class="note">Esta simulación no constituye una oferta de crédito ni una aprobación. El cálculo usa cuotas niveladas sobre saldo insoluto, sin comisiones ni seguros. Las cuotas se muestran redondeadas; la última puede variar ligeramente.</p></div><div class="panel" style="margin-top:22px"><h3>Tabla de amortización</h3><p class="note">Desglose estimado de capital, interés y saldo en cada cuota.</p><div style="overflow-x:auto"><table id="amortizacion" style="width:100%;border-collapse:collapse;font-size:13px;text-align:right"><thead><tr><th>Cuota</th><th>Pago</th><th>Interés</th><th>Capital</th><th>Saldo</th></tr></thead><tbody id="amortBody"></tbody></table></div></div></div></section>
+<section id="clientes" style="background:#eee7fa"><div class="wrap"><h2>Explora ZUUPI</h2><p class="sub">Prueba cómo será el registro y el proceso de solicitud, sin ingresar información real.</p><div class="tabs" role="group" aria-label="Secciones de clientes"><button type="button" class="tab active" data-tab="registro" onclick="openTab('registro')">Crear cuenta</button><button type="button" class="tab" data-tab="solicitud" onclick="openTab('solicitud')">Solicitar préstamo</button><button type="button" class="tab" data-tab="estado" onclick="openTab('estado')">Mis solicitudes</button></div><div class="two"><div class="panel" id="registro"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Registro de clientes</h3><div class="progress" id="regProgress"></div><div class="step" id="regBody" aria-live="polite"></div><div class="actions"><button type="button" class="btn pale" onclick="regBack()">Anterior</button><button type="button" class="btn" id="regButton" onclick="regNext()">Continuar →</button></div><p class="note">No se crea una cuenta ni se guardan datos personales.</p></div><div class="panel hidden" id="solicitud"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Solicitud de préstamo</h3><div class="progress" id="loanProgress"></div><div class="step" id="loanBody" aria-live="polite"></div><div class="actions"><button type="button" class="btn pale" onclick="loanBack()">Anterior</button><button type="button" class="btn" id="loanButton" onclick="loanNext()">Continuar →</button></div><p class="note">No se activa la cámara, no se suben documentos y no se envía ninguna solicitud real.</p></div><div class="panel hidden" id="estado"><span class="demo-pill">DEMOSTRACIÓN</span><h3>Mis solicitudes</h3><div class="step" id="statusBody" aria-live="polite"><strong>Sin solicitudes de prueba</strong><p>Completa el recorrido para ver un ejemplo de seguimiento.</p></div></div><div class="panel"><h3>¿Cómo funcionaría?</h3><div class="step"><strong>01 · Registro</strong><p>Crear cuenta y verificar contacto.</p><strong>02 · Solicitud</strong><p>Seleccionar monto, plazo e información financiera.</p><strong>03 · Identidad</strong><p>Documento, selfie y prueba de vida en un sistema seguro.</p><strong>04 · Evaluación</strong><p>Un oficial de crédito revisa el expediente.</p><strong>05 · Respuesta</strong><p>Objetivo de 24–48 horas con expediente completo.</p></div><p class="notice">ZUUPI es un prototipo público. El panel administrativo y los expedientes reales deberán alojarse en una plataforma privada con controles de acceso.</p></div></div></div></section>
+</main>
+<footer><div class="wrap"><strong>ZUUPI</strong><p>Tu dinero. Tu futuro.</p><p>Prototipo de demostración. No se reciben solicitudes, pagos ni documentos reales.</p></div></footer>
 <script>
-const $ = id => document.getElementById(id);
-
-const money = n => new Intl.NumberFormat("es-DO",{
-  style:"currency",currency:"DOP"
-}).format(n);
-
-function category(a){
-  if(a<=10000)return ["ZUUPI Mini",[3,6]];
-  if(a<=20000)return ["ZUUPI Flex",[3,6,9]];
-  if(a<=35000)return ["ZUUPI Plus",[6,9,12]];
-  return ["ZUUPI Max",[9,12,18]];
-}
-
-function updateAmount(){
-  const a=Number($("monto").value);
-  const [name,terms]=category(a);
-  const previous=Number($("plazo").value);
-  $("amountText").textContent=money(a);
-  $("categoria").textContent=name;
-  $("plazo").replaceChildren(...terms.map(n=>{
-    const o=document.createElement("option");
-    o.value=n;
-    o.textContent=n+" meses";
-    return o;
-  }));
-  $("plazo").value=terms.includes(previous)?previous:terms[0];
-  calculate();
-}
-
+"use strict";
+const el=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat("es-DO",{style:"currency",currency:"DOP"}).format(n);
+function category(amount){if(amount<=10000)return ["ZUUPI Mini",[3,6]];if(amount<=20000)return ["ZUUPI Flex",[3,6,9]];if(amount<=35000)return ["ZUUPI Plus",[6,9,12]];return ["ZUUPI Max",[9,12,18]];}
+function updateAmount(){const amount=Number(el("monto").value);const [name,terms]=category(amount);const old=Number(el("plazo").value);el("amountText").textContent=money(amount);el("categoria").textContent=name;el("plazo").replaceChildren(...terms.map(term=>{const option=document.createElement("option");option.value=String(term);option.textContent=term+" meses";return option;}));el("plazo").value=String(terms.includes(old)?old:terms[0]);calculate();}
 function calculate(){
-  const a=Number($("monto").value);
-  const months=Number($("plazo").value);
-  const frequency=Number($("frecuencia").value);
-  const n=months*frequency/12;
-  const r=0.24/frequency;
-  const payment=a*r/(1-Math.pow(1+r,-n));
-  $("cuotaLabel").textContent=frequency===24?
-    "Cuota quincenal estimada":"Cuota mensual estimada";
-  $("cuota").textContent=money(payment);
-  $("capital").textContent=money(a);
-  $("intereses").textContent=money(payment*n-a);
-  $("total").textContent=money(payment*n);
+ const amount=Number(el("monto").value);
+ const months=Number(el("plazo").value);
+ const periodsPerYear=Number(el("frecuencia").value);
+ const annualRate=Number(el("tasa").value);
+ const valid=Number.isFinite(amount)&&amount>=5000&&amount<=50000&&Number.isInteger(months)&&months>0&&[12,24].includes(periodsPerYear)&&Number.isFinite(annualRate)&&annualRate>=0&&annualRate<=100;
+ if(!valid){el("cuota").textContent="Revisa los valores";el("amortBody").replaceChildren();return;}
+ const periods=months*periodsPerYear/12;
+ const rate=annualRate/100/periodsPerYear;
+ const regularPayment=rate===0?amount/periods:amount*rate/(1-Math.pow(1+rate,-periods));
+ let balance=amount,totalInterest=0,totalPaid=0;
+ const tbody=el("amortBody");tbody.replaceChildren();
+ for(let i=1;i<=periods;i++){
+   const interest=balance*rate;
+   const principal=i===periods?balance:Math.min(balance,regularPayment-interest);
+   const payment=principal+interest;
+   balance=Math.max(0,balance-principal);
+   totalInterest+=interest;totalPaid+=payment;
+   const row=document.createElement("tr");
+   for(const value of [String(i),money(payment),money(interest),money(principal),money(balance)]){
+     const cell=document.createElement("td");cell.textContent=value;row.appendChild(cell);
+   }
+   tbody.appendChild(row);
+ }
+ el("cuotaLabel").textContent=periodsPerYear===24?"Cuota quincenal estimada":"Cuota mensual estimada";
+ el("cuota").textContent=money(regularPayment);
+ el("capital").textContent=money(amount);
+ el("intereses").textContent=money(totalInterest);
+ el("total").textContent=money(totalPaid);
+ el("numCuotas").textContent=String(periods);
+ el("tasaVisible").textContent=annualRate.toLocaleString("es-DO")+"%";
 }
-
-$("monto").addEventListener("input",updateAmount);
-$("plazo").addEventListener("change",calculate);
-$("frecuencia").addEventListener("change",calculate);
-
-function openTab(name){
-  ["registro","solicitud","estado"].forEach(t=>{
-    $(t).classList.toggle("hidden",t!==name);
-    document.querySelector('[data-tab="'+t+'"]')
-      .classList.toggle("active",t===name);
-  });
-  $("clientes").scrollIntoView({behavior:"smooth"});
-}
-
-let regStep=0;
-const regSteps=[
-  ["Datos personales","En el sistema real se solicitarán nombres, apellidos y fecha de nacimiento."],
-  ["Contacto","El cliente proporcionará teléfono y correo electrónico para su verificación."],
-  ["Seguridad","Se configurarán credenciales seguras y autenticación adicional."],
-  ["Confirmación","Se revisarán las condiciones y la información de privacidad."],
-  ["Registro de prueba completado","Has terminado la demostración. No se creó una cuenta real."]
+function openTab(tab){for(const name of ["registro","solicitud","estado"]){el(name).classList.toggle("hidden",name!==tab);document.querySelector('[data-tab="'+name+'"]').classList.toggle("active",name===tab);}el("clientes").scrollIntoView({behavior:"smooth",block:"start"});}
+function renderProgress(id,step,count){el(id).replaceChildren(...Array.from({length:count},(_,i)=>{const bar=document.createElement("span");if(i<=step)bar.className="done";return bar;}));}
+function renderStep(id,heading,body){const box=el(id);box.replaceChildren();const title=document.createElement("strong");title.textContent=heading;const paragraph=document.createElement("p");paragraph.textContent=body;box.append(title,paragraph);}
+let regStep=0;const registration=[
+["Datos personales","En el servicio real se pedirían nombres, apellidos y fecha de nacimiento."],
+["Datos de contacto","El cliente proporcionaría teléfono y correo para recibir códigos de verificación."],
+["Seguridad","Se configurarían contraseña segura y autenticación adicional."],
+["Confirmación","El cliente revisaría las condiciones y el aviso de privacidad."],
+["Registro de prueba completado","Terminaste la demostración. No se creó ninguna cuenta real."]
 ];
-
-function renderReg(){
-  $("regProgress").innerHTML=regSteps.map((_,i)=>
-    '<span class="'+(i<=regStep?"done":"")+'"></span>'
-  ).join("");
-  $("regBody").innerHTML="<strong>"+regSteps[regStep][0]+
-    "</strong><p>"+regSteps[regStep][1]+"</p>";
-  $("regButton").textContent=regStep===4?"Reiniciar":"Continuar →";
-}
-
-function regNext(){
-  regStep=regStep===4?0:regStep+1;
-  renderReg();
-}
-
-function regBack(){
-  regStep=Math.max(0,regStep-1);
-  renderReg();
-}
-
-let loanStep=0;
-const loanSteps=[
-  ["Seleccionar préstamo","El cliente selecciona el monto y el plazo mediante el simulador."],
-  ["Información económica","Se solicitarán ingresos, actividad laboral y obligaciones financieras."],
-  ["Documento de identidad","El cliente presentará su cédula o documento admitido mediante un sistema seguro."],
-  ["Verificación biométrica","Un proveedor especializado comprobará el rostro y realizará una prueba de vida."],
-  ["Revisión de solicitud","El cliente revisará los datos y aceptará las condiciones correspondientes."],
-  ["Solicitud de prueba enviada","El expediente ficticio queda en evaluación. No se ha enviado información a ningún servidor."]
+function renderReg(){renderProgress("regProgress",regStep,registration.length);renderStep("regBody",registration[regStep][0],registration[regStep][1]);el("regButton").textContent=regStep===registration.length-1?"Reiniciar":"Continuar →";}
+function regNext(){regStep=regStep===registration.length-1?0:regStep+1;renderReg();}
+function regBack(){regStep=Math.max(0,regStep-1);renderReg();}
+let loanStep=0;const loanSteps=[
+["Condiciones del préstamo","Se usarían el monto y el plazo seleccionados en el simulador."],
+["Información financiera","El cliente declararía ingresos, actividad laboral y obligaciones financieras."],
+["Documento de identidad","Se verificaría una cédula o documento admitido mediante un servicio seguro."],
+["Verificación biométrica","Se haría una selfie con prueba de vida a través de un proveedor especializado. Esta demostración no usa la cámara."],
+["Revisión y consentimiento","El cliente revisaría su información y aceptaría las condiciones aplicables antes del envío."],
+["Solicitud de prueba completada","El expediente ficticio aparece en Mis solicitudes. No se enviaron datos a un servidor."]
 ];
-
-function renderLoan(){
-  $("loanProgress").innerHTML=loanSteps.map((_,i)=>
-    '<span class="'+(i<=loanStep?"done":"")+'"></span>'
-  ).join("");
-  $("loanBody").innerHTML="<strong>"+loanSteps[loanStep][0]+
-    "</strong><p>"+loanSteps[loanStep][1]+"</p>";
-  $("loanButton").textContent=loanStep===5?"Reiniciar":"Continuar →";
-}
-
-function loanNext(){
-  if(loanStep===4){
-    $("statusBody").innerHTML=
-      "<strong>Solicitud ZUUPI-DEMO-001</strong>"+
-      "<p>Monto: "+money(Number($("monto").value))+"</p>"+
-      "<p>Estado: En evaluación (simulación)</p>"+
-      "<p>Respuesta objetivo: 24–48 horas.</p>"+
-      "<p>No se ha enviado una solicitud real.</p>";
-  }
-  loanStep=loanStep===5?0:loanStep+1;
-  renderLoan();
-}
-
-function loanBack(){
-  loanStep=Math.max(0,loanStep-1);
-  renderLoan();
-}
-
-updateAmount();
-renderReg();
-renderLoan();
+function renderLoan(){renderProgress("loanProgress",loanStep,loanSteps.length);renderStep("loanBody",loanSteps[loanStep][0],loanSteps[loanStep][1]);el("loanButton").textContent=loanStep===loanSteps.length-1?"Reiniciar":"Continuar →";}
+function loanNext(){if(loanStep===4){renderStep("statusBody","Solicitud ZUUPI-DEMO-001 · En evaluación (simulación)","Monto: "+money(Number(el("monto").value))+". Respuesta objetivo en el servicio futuro: 24–48 horas. No se ha enviado una solicitud real.");}loanStep=loanStep===loanSteps.length-1?0:loanStep+1;renderLoan();}
+function loanBack(){loanStep=Math.max(0,loanStep-1);renderLoan();}
+el("monto").addEventListener("input",updateAmount);el("plazo").addEventListener("change",calculate);el("frecuencia").addEventListener("change",calculate);el("tasa").addEventListener("input",calculate);updateAmount();renderReg();renderLoan();
 </script>
 </body>
 </html>
