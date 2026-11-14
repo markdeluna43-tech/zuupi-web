@@ -91,5 +91,24 @@ function loanNext(){if(loanStep===4){renderStep("statusBody","Solicitud ZUUPI-DE
 function loanBack(){loanStep=Math.max(0,loanStep-1);renderLoan();}
 el("monto").addEventListener("input",updateAmount);el("plazo").addEventListener("change",calculate);el("frecuencia").addEventListener("change",calculate);el("tasa").addEventListener("input",calculate);updateAmount();renderReg();renderLoan();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // Configuración de Supabase para ZUUPI
+  const SUPABASE_URL = "https://xvplltpunocysjfzijub.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_YbkhNS6NvTt6Lfvbe67Amg_f2JiAaGA";
+
+  // Crear conexión
+  const zuupiSupabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  console.log("ZUUPI: cliente Supabase inicializado");
+</script>
+
 </body>
 </html>
