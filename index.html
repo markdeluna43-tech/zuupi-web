@@ -2,369 +2,421 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZUPI — Tu préstamo, hoy mismo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#120d30">
+<title>ZUUPI | Tu dinero. Tu futuro.</title>
 <style>
-:root{--night:#100d2b;--night2:#21114b;--purple:#8823ed;--lav:#e9ddff;--ink:#211637}
+:root{
+  --dark:#120d30;
+  --purple:#8425e8;
+  --violet:#5721ad;
+  --light:#f7f5fc;
+  --text:#261b3b;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:#f7f5fd}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text)}
 button,input,select{font:inherit}
 button{cursor:pointer}
 a{text-decoration:none;color:inherit}
-.wrap{max-width:1200px;margin:auto;padding:0 26px}
-.top{background:#110d2b;color:white;position:sticky;top:0;z-index:10;border-bottom:1px solid #ffffff19}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:74px;gap:15px}
-.logo{font-size:31px;font-weight:900;font-style:italic;letter-spacing:-2px}
-.logo span{background:linear-gradient(140deg,#d48aff,#7724eb);background-clip:text;color:transparent}
-.links{display:flex;gap:25px;align-items:center;font-size:14px}
-.links button{background:none;border:0;color:#eee5ff}
-.btn{background:linear-gradient(110deg,#962bff,#6521c8);color:white;border:0;padding:13px 20px;border-radius:50px;font-weight:750;box-shadow:0 9px 22px #7e2bd44b}
-.btn.light{background:white;color:#5022a2;box-shadow:none}
-.btn.outline{background:transparent;border:1px solid #cbb9f3;box-shadow:none}
-.hero{background:radial-gradient(ellipse at 70% 30%,#452079 0%,transparent 44%),linear-gradient(130deg,#100d2b,#1e1649 65%,#2a155e);color:white;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:25px;min-height:560px;padding-top:55px;padding-bottom:70px}
-.eyebrow{color:#c99bff;font-size:12px;font-weight:800;letter-spacing:2px}
-.hero h1{font-size:clamp(40px,5vw,70px);line-height:1.06;margin:18px 0 20px;letter-spacing:-2.5px}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,#c77cff,#9a44ff);background-clip:text;color:transparent}
-.hero p{color:#ddd4f3;font-size:18px;line-height:1.65;max-width:490px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.trust{display:flex;gap:22px;flex-wrap:wrap;color:#cbb9e8;font-size:12px;margin-top:32px}
-.phones{display:flex;justify-content:center;align-items:center;gap:12px;transform:rotate(-2deg)}
-.phone{width:210px;height:420px;border:7px solid #070711;border-radius:34px;background:linear-gradient(160deg,#110d32,#311067 70%,#6b22c5);box-shadow:0 25px 45px #0009,inset 0 0 0 1px #aaa;position:relative;padding:30px 13px 16px;color:white;overflow:hidden}
-.phone:before{content:'';position:absolute;width:77px;height:18px;border-radius:20px;background:#05050b;top:8px;left:calc(50% - 38px)}
-.phone.brandphone{display:flex;align-items:center;justify-content:center;flex-direction:column}
-.phone.brandphone .bigz{font-size:120px;font-weight:1000;font-style:italic;background:linear-gradient(140deg,#ec9fff,#7e16e9);background-clip:text;color:transparent;line-height:1}
-.phone.brandphone b{font-size:40px;font-style:italic}
-.phone.brandphone small{margin-top:35px;text-align:center;line-height:1.5}
-.phone.app{background:linear-gradient(180deg,#110c2c 0%,#160d37 43%,#f8f6ff 43%);padding:37px 11px 15px}
-.apphead{font-size:14px;font-weight:700}
-.apphead .z{color:#c783ff;font-size:25px;display:block}
-.loanbox{background:linear-gradient(125deg,#9627f1,#5115ac);padding:13px;border-radius:13px;margin:13px 0;color:white}
-.loanbox small{font-size:11px}
-.loanbox strong{font-size:24px;display:block;margin:7px 0 10px}
-.loanbox .mini-btn{display:block;background:white;color:#48218c;text-align:center;border-radius:20px;padding:9px;font-size:11px;font-weight:800}
-.phoneitem{background:#fff;color:#2c1d47;border-radius:10px;margin:8px 0;padding:13px 9px;font-size:11px;font-weight:750}
-.section{padding:65px 0}
-.section h2{font-size:clamp(27px,3.4vw,41px);letter-spacing:-1px;margin:0 0 12px}
-.muted{color:#746b86;line-height:1.7}
-.features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:27px}
-.feature{background:white;border:1px solid #ece6f5;border-radius:20px;padding:24px;box-shadow:0 9px 25px #3c18660c}
-.feature .ico{font-size:29px}
-.feature h3{margin:15px 0 8px;font-size:17px}
-.feature p{font-size:13px;line-height:1.6;color:#756b82}
-.darkband{background:linear-gradient(120deg,#160e36,#4a168d);color:white}
-.darkband .muted{color:#d8c8ec}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
-.card{background:white;border:1px solid #eae3f3;border-radius:23px;padding:27px;box-shadow:0 10px 35px #2c155010}
-.card h3{margin:0 0 15px;font-size:23px}
-.card label{display:block;font-size:13px;font-weight:750;margin:18px 0 9px}
-.card input,.card select{width:100%;border:1px solid #d9cee9;border-radius:12px;padding:13px;color:#2b174c;background:white}
-.card input[type=range]{padding:0;accent-color:#8c2eea}
-.range{display:flex;justify-content:space-between;color:#81748d;font-size:12px}
-.amount{font-size:31px;color:#6b24bb;font-weight:850}
-.result{background:#f2e9ff;border-radius:18px;padding:20px;margin-top:16px}
-.result .pay{font-size:33px;color:#5d19a6;font-weight:850;margin:8px 0 16px}
-.kv{display:flex;justify-content:space-between;gap:10px;padding:9px 0;font-size:13px}
-.kv span{color:#746985}
-.kv b{text-align:right}
-.note{font-size:12px;color:#766c82;line-height:1.65}
-.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:25px}
-.cat{padding:20px;border:1px solid #e8ddf7;border-radius:17px;background:white}
-.cat b{color:#7b2cd4}
-.cat strong{display:block;margin:12px 0 8px}
-.cat small{color:#766b83}
-.progress{display:flex;gap:6px;margin:18px 0}
-.progress i{height:5px;flex:1;background:#e5d8f5;border-radius:20px}
-.progress i.done{background:#8b2ceb}
-.form-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
-.hidden{display:none!important}
-.success{background:#f2e9ff;padding:18px;border-radius:15px;color:#552199}
-.footer{background:#100d2b;color:#b9a9d1;padding:35px 0;font-size:13px}
-.footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.appnav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.tab{border:1px solid #ddd0ee;border-radius:30px;background:white;color:#5d3590;padding:10px 17px;font-weight:750}
-.tab.active{background:#6120b0;color:white;border-color:#6120b0}
-.status{border:1px solid #e8dff3;border-radius:13px;padding:15px;margin:12px 0;background:#fff}
-.status strong{display:block}
-.status small{color:#756b85}
-.warning{background:#fff6e5;border:1px solid #f3deb2;border-radius:12px;padding:14px;color:#805d25;font-size:12px;line-height:1.6}
+.container{max-width:1150px;margin:auto;padding:0 22px}
+header{background:#120d30;color:white;position:sticky;top:0;z-index:10}
+nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:32px;font-weight:900;font-style:italic;letter-spacing:-1px}
+.logo span{color:#c27aff}
+.links{display:flex;gap:18px;align-items:center}
+.links a{font-size:14px}
+.btn{border:0;border-radius:30px;padding:13px 22px;background:linear-gradient(110deg,#a22aff,#6320c4);color:white;font-weight:bold}
+.btn.white{background:white;color:#59219f}
+.btn.secondary{background:#eee5fc;color:#6124a8}
+.hero{background:radial-gradient(circle at 80% 30%,#51208a,transparent 45%),linear-gradient(120deg,#100c2c,#21134b);color:white;padding:75px 0}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:35px}
+.hero h1{font-size:clamp(39px,5vw,67px);line-height:1.08;margin:15px 0}
+.hero h1 em{font-style:normal;color:#c483ff}
+.hero p{font-size:18px;color:#ddd2ef;line-height:1.6}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.hero small{color:#d7b4ff}
+.phones{display:flex;justify-content:center;gap:12px}
+.phone{width:195px;height:390px;border:7px solid #070711;border-radius:34px;box-shadow:0 20px 40px #0008;position:relative;overflow:hidden}
+.phone:before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:75px;height:17px;background:#050509;border-radius:20px}
+.phone.splash{background:linear-gradient(150deg,#151038,#391276,#8127db);display:flex;flex-direction:column;justify-content:center;align-items:center;color:white}
+.big-z{font-size:105px;font-weight:900;font-style:italic;background:linear-gradient(#e2a6ff,#8322e8);background-clip:text;color:transparent}
+.phone.splash strong{font-size:37px;font-style:italic}
+.phone.splash p{text-align:center;font-size:12px;padding:10px}
+.phone.app{background:linear-gradient(#160e35 0 43%,#f7f4ff 43%);padding:38px 10px 12px}
+.phone.app h3{color:white;margin:0 0 10px;font-size:15px}
+.purple-card{background:linear-gradient(120deg,#9625f1,#5420a8);color:white;border-radius:13px;padding:15px}
+.purple-card strong{display:block;font-size:24px;margin:9px 0}
+.purple-card small{color:#e9d6ff}
+.phone-link{background:white;border-radius:10px;margin-top:10px;padding:13px 9px;font-size:11px;font-weight:bold}
+section{padding:65px 0}
+h2{font-size:clamp(28px,3vw,40px);margin:0 0 13px}
+.subtitle{color:#756b84;line-height:1.6}
+.features,.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:28px}
+.feature,.category,.panel{background:white;border:1px solid #e9e2f2;border-radius:20px;padding:23px;box-shadow:0 7px 25px #2610450b}
+.feature .icon{font-size:30px}
+.feature h3{margin:15px 0 8px}
+.feature p{color:#786f86;font-size:13px;line-height:1.6}
+.band{background:linear-gradient(115deg,#160d38,#542093);color:white}
+.band .subtitle{color:#e0d0f2}
+.category strong{color:#7128c4;display:block;margin-bottom:12px}
+.category b{display:block;color:#28143d;margin-bottom:10px}
+.category small{color:#71677d}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px}
+.panel h3{margin:0 0 20px}
+label{display:block;font-size:13px;font-weight:bold;margin:18px 0 9px}
+input,select{width:100%;padding:13px;border:1px solid #dcd0e9;border-radius:12px;background:white}
+input[type=range]{padding:0;accent-color:#8b29e6}
+.amount{font-size:31px;color:#7122bf;font-weight:900}
+.range{display:flex;justify-content:space-between;font-size:12px;color:#80758b}
+.summary{background:#f1e8fd;border-radius:16px;padding:19px}
+.payment{font-size:33px;font-weight:900;color:#6020ac;margin:12px 0 20px}
+.line{display:flex;justify-content:space-between;gap:12px;margin:15px 0;font-size:13px}
+.line span{color:#746b80}
+.line b{text-align:right}
+.note{font-size:12px;color:#766d83;line-height:1.7}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}
+.tab{background:white;color:#6229a5;border:1px solid #d8c6ed;border-radius:30px;padding:11px 16px;font-weight:bold}
+.tab.active{background:#6520b6;color:white}
+.hidden{display:none}
+.step{background:#f3ecfc;border-radius:14px;padding:20px;line-height:1.7}
+.step strong{display:block;color:#59209b}
+.step p{color:#645b72}
+.progress{display:flex;gap:5px;margin:15px 0}
+.progress span{flex:1;height:6px;background:#e5d7f5;border-radius:10px}
+.progress span.done{background:#8c2bea}
+.notice{padding:14px;background:#fff5e4;border-radius:12px;font-size:12px;color:#785723;line-height:1.7}
+footer{background:#120d30;color:#c8b9db;padding:35px 0;font-size:13px}
+footer strong{font-size:25px;color:white}
 @media(max-width:850px){
-.hero .wrap{grid-template-columns:1fr}
-.phones{transform:none;padding-top:20px}
+.hero-grid,.two{grid-template-columns:1fr}
 .features,.categories{grid-template-columns:repeat(2,1fr)}
-.cols{grid-template-columns:1fr}
-.links .hide-mobile{display:none}
 }
-@media(max-width:500px){
-.wrap{padding:0 17px}
-.hero .wrap{padding-top:43px;padding-bottom:50px}
-.phone{width:155px;height:330px;border-width:5px;border-radius:27px;padding:26px 9px 10px}
-.phone.brandphone .bigz{font-size:85px}
-.phone.brandphone b{font-size:30px}
-.phone.brandphone small{font-size:10px}
-.phone.app{padding:32px 8px 10px}
-.loanbox strong{font-size:17px}
-.phoneitem{padding:9px 6px;font-size:9px}
-.features,.categories{grid-template-columns:1fr 1fr;gap:9px}
-.feature,.cat{padding:15px}
-.section{padding:44px 0}
-.hero h1{letter-spacing:-1px}
-.top .wrap{min-height:64px}
-.logo{font-size:27px}
-.links{gap:9px}
-.links button{font-size:12px}
-.card{padding:19px}
+@media(max-width:520px){
+.links a{display:none}
+.hero{padding:45px 0}
+.phone{width:155px;height:325px}
+.big-z{font-size:80px}
+.phone.splash strong{font-size:29px}
+.phone.app{padding:35px 8px 10px}
+.purple-card strong{font-size:18px}
+.phone-link{padding:9px 6px}
+.features,.categories{gap:9px}
+.feature,.category{padding:16px}
+section{padding:45px 0}
 }
 </style>
 </head>
 <body>
-<header class="top">
-<div class="wrap">
-<a class="logo" href="#inicio"><span>Z</span>upi</a>
-<nav class="links">
-<a class="hide-mobile" href="#beneficios">Beneficios</a>
-<a class="hide-mobile" href="#simulador">Préstamos</a>
-<button onclick="showApp('registro')">Crear cuenta</button>
-<button class="btn" onclick="showApp('solicitud')">Solicitar</button>
-</nav>
+
+<header>
+<nav class="container">
+<a class="logo" href="#inicio"><span>Z</span>UUPI</a>
+<div class="links">
+<a href="#beneficios">Beneficios</a>
+<a href="#prestamos">Préstamos</a>
+<button class="btn" onclick="openTab('registro')">Crear cuenta</button>
 </div>
+</nav>
 </header>
 
-<section class="hero" id="inicio">
-<div class="wrap">
+<div class="hero" id="inicio">
+<div class="container hero-grid">
 <div>
-<div class="eyebrow">ZUPI · FINANCIAMIENTO DIGITAL</div>
-<h1>Tu préstamo,<br><em>hoy comienza aquí.</em></h1>
-<p>Préstamos personales con una experiencia sencilla, moderna y digital. Solicita entre RD$5,000 y RD$50,000.</p>
-<div class="hero-actions">
-<button class="btn light" onclick="document.getElementById('simulador').scrollIntoView({behavior:'smooth'})">Simular préstamo →</button>
-<button class="btn outline" onclick="showApp('registro')">Crear cuenta</button>
+<small>ZUUPI · FINANCIAMIENTO DIGITAL</small>
+<h1>Tu préstamo,<br><em>tu futuro.</em></h1>
+<p>Préstamos personales digitales desde RD$5,000 hasta RD$50,000. Una experiencia sencilla, moderna y transparente.</p>
+<div class="actions">
+<a class="btn white" href="#prestamos">Simular préstamo →</a>
+<button class="btn" onclick="openTab('registro')">Crear cuenta</button>
 </div>
-<div class="trust">
-<span>✓ Proceso digital</span>
-<span>✓ Evaluación humana</span>
-<span>✓ Respuesta objetivo 24–48 h</span>
+<p><small>✓ Proceso digital &nbsp; ✓ Evaluación humana &nbsp; ✓ Respuesta objetivo de 24 a 48 horas</small></p>
 </div>
-</div>
-<div class="phones" aria-label="Vista ilustrativa de la aplicación Zupi">
-<div class="phone brandphone">
-<div class="bigz">Z</div>
-<b>Zupi</b>
-<small>Préstamos rápidos<br>para lo que necesites</small>
+
+<div class="phones">
+<div class="phone splash">
+<div class="big-z">Z</div>
+<strong>ZUUPI</strong>
+<p>Tu dinero.<br>Tu futuro.</p>
 </div>
 <div class="phone app">
-<div class="apphead"><span class="z">Z</span>Hola 👋</div>
-<div class="loanbox">
+<h3>Hola 👋</h3>
+<div class="purple-card">
 <small>Solicita hasta</small>
 <strong>RD$50,000</strong>
-<span class="mini-btn">Solicitar ahora →</span>
+<small>Sujeto a evaluación</small>
 </div>
-<div class="phoneitem">▣ &nbsp; Mis préstamos →</div>
-<div class="phoneitem">▤ &nbsp; Mis pagos →</div>
-<div class="phoneitem">♧ &nbsp; Ayuda →</div>
+<div class="phone-link">▣ &nbsp; Solicitar préstamo →</div>
+<div class="phone-link">▤ &nbsp; Mis préstamos →</div>
+<div class="phone-link">▦ &nbsp; Mis pagos →</div>
+<div class="phone-link">♡ &nbsp; Ayuda →</div>
 </div>
 </div>
 </div>
-</section>
+</div>
 
-<section class="section" id="beneficios">
-<div class="wrap">
+<section id="beneficios">
+<div class="container">
 <h2>Tu dinero. Tu futuro.</h2>
-<p class="muted">Una experiencia diseñada para que entiendas cada paso de tu financiamiento.</p>
+<p class="subtitle">Diseñamos una experiencia financiera fácil de entender.</p>
 <div class="features">
-<div class="feature"><div class="ico">⏱</div><h3>Respuesta ágil</h3><p>Objetivo de respuesta en 24 a 48 horas una vez completado el expediente.</p></div>
-<div class="feature"><div class="ico">▣</div><h3>100% digital</h3><p>Recorre el registro y la solicitud desde tu teléfono.</p></div>
-<div class="feature"><div class="ico">◈</div><h3>Montos flexibles</h3><p>Desde RD$5,000 hasta RD$50,000, sujetos a evaluación.</p></div>
-<div class="feature"><div class="ico">♢</div><h3>Verificación segura</h3><p>Documento de identidad y prueba biométrica durante la solicitud real.</p></div>
+<div class="feature"><div class="icon">⏱</div><h3>Respuesta ágil</h3><p>Objetivo de respuesta en 24 a 48 horas con expediente completo.</p></div>
+<div class="feature"><div class="icon">📱</div><h3>Proceso digital</h3><p>Registro y solicitud desde tu dispositivo.</p></div>
+<div class="feature"><div class="icon">💜</div><h3>Montos flexibles</h3><p>Préstamos entre RD$5,000 y RD$50,000.</p></div>
+<div class="feature"><div class="icon">🛡️</div><h3>Verificación</h3><p>Documento de identidad y biometría en el proceso de solicitud.</p></div>
 </div>
 </div>
 </section>
 
-<section class="section darkband">
-<div class="wrap">
-<h2>Cuatro formas de avanzar.</h2>
-<p class="muted">Elige un monto acorde con tus necesidades y capacidad de pago.</p>
+<section class="band">
+<div class="container">
+<h2>Encuentra tu préstamo ideal</h2>
+<p class="subtitle">Cuatro categorías adaptadas a diferentes necesidades.</p>
 <div class="categories">
-<div class="cat"><b>Mini</b><strong>RD$5,000–10,000</strong><small>3 o 6 meses</small></div>
-<div class="cat"><b>Flex</b><strong>RD$10,001–20,000</strong><small>3, 6 o 9 meses</small></div>
-<div class="cat"><b>Plus</b><strong>RD$20,001–35,000</strong><small>6, 9 o 12 meses</small></div>
-<div class="cat"><b>Max</b><strong>RD$35,001–50,000</strong><small>9, 12 o 18 meses</small></div>
+<div class="category"><strong>ZUUPI Mini</strong><b>RD$5,000–10,000</b><small>3 o 6 meses</small></div>
+<div class="category"><strong>ZUUPI Flex</strong><b>RD$10,001–20,000</b><small>3, 6 o 9 meses</small></div>
+<div class="category"><strong>ZUUPI Plus</strong><b>RD$20,001–35,000</b><small>6, 9 o 12 meses</small></div>
+<div class="category"><strong>ZUUPI Max</strong><b>RD$35,001–50,000</b><small>9, 12 o 18 meses</small></div>
 </div>
 </div>
 </section>
 
-<section class="section" id="simulador">
-<div class="wrap">
+<section id="prestamos">
+<div class="container">
 <h2>Simula tu préstamo</h2>
-<p class="muted">Consulta una cuota estimada y el costo de los intereses antes de iniciar.</p>
-<div class="cols">
-<div class="card">
-<h3>Personaliza tu financiamiento</h3>
+<p class="subtitle">Conoce tu cuota y los intereses estimados antes de solicitarlo.</p>
+<div class="two">
+<div class="panel">
+<h3>Personaliza tu préstamo</h3>
 <label for="monto">Monto solicitado</label>
 <div class="amount" id="amountText">RD$25,000</div>
-<input type="range" id="monto" min="5000" max="50000" step="1000" value="25000">
+<input id="monto" type="range" min="5000" max="50000" step="1000" value="25000">
 <div class="range"><span>RD$5,000</span><span>RD$50,000</span></div>
 <label for="plazo">Plazo</label>
 <select id="plazo"></select>
-<label for="frecuencia">Frecuencia</label>
+<label for="frecuencia">Frecuencia de pago</label>
 <select id="frecuencia">
 <option value="12">Mensual</option>
-<option value="24">Quincenal (dos pagos por mes)</option>
+<option value="24">Quincenal (2 pagos por mes)</option>
 </select>
-<div class="kv"><span>Categoría</span><b id="category">Zupi Plus</b></div>
-<div class="kv"><span>Tasa nominal anual de ejemplo</span><b>24%</b></div>
-<p class="note">Tasa ilustrativa, no definitiva. Cuotas calculadas sobre saldo insoluto, sin cargos adicionales.</p>
+<div class="line"><span>Categoría</span><b id="categoria"></b></div>
+<div class="line"><span>Tasa nominal anual ilustrativa</span><b>24%</b></div>
+<p class="note">Intereses sobre saldo insoluto. La tasa es únicamente un ejemplo y no representa una oferta real.</p>
 </div>
-<div class="card">
-<h3>Resumen de tu préstamo</h3>
-<div class="result">
-<div class="muted" id="paymentLabel">Cuota mensual estimada</div>
-<div class="pay" id="payment">—</div>
-<div class="kv"><span>Capital</span><b id="capital">—</b></div>
-<div class="kv"><span>Intereses totales</span><b id="interest">—</b></div>
-<div class="kv"><span>Total a pagar</span><b id="total">—</b></div>
+
+<div class="panel">
+<h3>Resumen del préstamo</h3>
+<div class="summary">
+<small id="cuotaLabel">Cuota mensual estimada</small>
+<div class="payment" id="cuota"></div>
+<div class="line"><span>Capital</span><b id="capital"></b></div>
+<div class="line"><span>Intereses</span><b id="intereses"></b></div>
+<div class="line"><span>Total a pagar</span><b id="total"></b></div>
 </div>
-<button class="btn" style="width:100%;margin-top:18px" onclick="showApp('solicitud')">Continuar solicitud →</button>
-<p class="note">La aprobación depende de la evaluación de un oficial de crédito. No constituye una oferta vinculante.</p>
+<button class="btn" style="width:100%;margin-top:20px" onclick="openTab('solicitud')">Solicitar préstamo →</button>
+<p class="note">No incluye comisiones, seguros ni otros cargos. Sujeto a evaluación crediticia.</p>
 </div>
 </div>
 </div>
 </section>
 
-<section class="section" id="app" style="background:#ede6fa">
-<div class="wrap">
-<h2>Explora Zupi desde ahora</h2>
-<p class="muted">Prueba el registro y el recorrido de solicitud. No ingreses datos personales reales.</p>
-<div class="appnav">
-<button class="tab active" data-tab="registro" onclick="showApp('registro')">Crear cuenta</button>
-<button class="tab" data-tab="solicitud" onclick="showApp('solicitud')">Solicitar préstamo</button>
-<button class="tab" data-tab="estado" onclick="showApp('estado')">Mis solicitudes</button>
+<section id="clientes" style="background:#eee7fa">
+<div class="container">
+<h2>Bienvenido a ZUUPI</h2>
+<p class="subtitle">Explora cómo funcionarán el registro y las solicitudes de nuestros clientes.</p>
+
+<div class="tabs">
+<button class="tab active" data-tab="registro" onclick="openTab('registro')">Crear cuenta</button>
+<button class="tab" data-tab="solicitud" onclick="openTab('solicitud')">Solicitar préstamo</button>
+<button class="tab" data-tab="estado" onclick="openTab('estado')">Mis solicitudes</button>
 </div>
-<div class="cols">
-<div class="card" id="registerCard">
-<h3>Crear cuenta · Demostración</h3>
+
+<div class="two">
+<div class="panel" id="registro">
+<h3>Registro de clientes</h3>
 <div class="progress" id="regProgress"></div>
-<div id="regBody"></div>
-<div class="form-actions">
-<button class="btn outline" style="color:#5b239f;border-color:#b89adf" onclick="regBack()">Anterior</button>
-<button class="btn" onclick="regNext()" id="regNext">Continuar →</button>
+<div class="step" id="regBody"></div>
+<div class="actions">
+<button class="btn secondary" onclick="regBack()">Anterior</button>
+<button class="btn" onclick="regNext()" id="regButton">Continuar →</button>
 </div>
-<p class="note">Formulario ilustrativo: no solicita ni conserva nombres, cédulas, contraseñas ni información real.</p>
+<p class="note">Demostración del registro. No solicita ni almacena datos personales reales.</p>
 </div>
-<div class="card hidden" id="applyCard">
-<h3>Solicitud de préstamo · Demostración</h3>
+
+<div class="panel hidden" id="solicitud">
+<h3>Solicitud de préstamo</h3>
 <div class="progress" id="loanProgress"></div>
-<div id="loanBody"></div>
-<div class="form-actions">
-<button class="btn outline" style="color:#5b239f;border-color:#b89adf" onclick="loanBack()">Anterior</button>
-<button class="btn" onclick="loanNext()" id="loanNext">Continuar →</button>
+<div class="step" id="loanBody"></div>
+<div class="actions">
+<button class="btn secondary" onclick="loanBack()">Anterior</button>
+<button class="btn" onclick="loanNext()" id="loanButton">Continuar →</button>
 </div>
-<p class="note">La verificación de documentos y biometría es una simulación. No se activa cámara ni se suben archivos.</p>
+<p class="note">La verificación de identidad y biometría es ilustrativa. No se activa la cámara ni se reciben documentos.</p>
 </div>
-<div class="card hidden" id="statusCard">
-<h3>Mis solicitudes · Demostración</h3>
-<div id="statusBody" class="status">
-<strong>Sin solicitudes de prueba</strong>
-<small>Completa el recorrido de solicitud para ver un ejemplo de seguimiento.</small>
+
+<div class="panel hidden" id="estado">
+<h3>Mis solicitudes</h3>
+<div class="step" id="statusBody">
+<strong>No tienes solicitudes de prueba.</strong>
+<p>Completa el recorrido para visualizar un ejemplo.</p>
 </div>
 </div>
-<div class="card">
-<h3>Así sería el proceso real</h3>
-<div class="status"><strong>01 · Registro</strong><small>Cuenta y datos de contacto</small></div>
-<div class="status"><strong>02 · Solicitud</strong><small>Monto, plazo e información financiera</small></div>
-<div class="status"><strong>03 · Identidad</strong><small>Documento, selfie y prueba de vida con proveedor especializado</small></div>
-<div class="status"><strong>04 · Evaluación</strong><small>Un oficial revisa el expediente y la capacidad de pago</small></div>
-<div class="status"><strong>05 · Respuesta</strong><small>Objetivo de 24–48 horas, sujeto a expediente completo</small></div>
-<div class="warning">Este sitio es un prototipo público. El futuro panel de oficiales de crédito estará en un sistema privado separado, con acceso autorizado.</div>
+
+<div class="panel">
+<h3>¿Cómo funciona ZUUPI?</h3>
+<div class="step">
+<strong>1. Registro</strong>
+<p>El cliente crea su perfil.</p>
+<strong>2. Solicitud</strong>
+<p>Selecciona monto, plazo y completa sus datos financieros.</p>
+<strong>3. Identidad</strong>
+<p>Presenta su documento y realiza la prueba biométrica.</p>
+<strong>4. Evaluación</strong>
+<p>Un oficial de crédito revisa la solicitud.</p>
+<strong>5. Respuesta</strong>
+<p>Objetivo de 24 a 48 horas con expediente completo.</p>
+</div>
+<p class="notice">ZUUPI es actualmente un prototipo. No procesa préstamos reales. El panel administrativo será una plataforma privada independiente.</p>
 </div>
 </div>
 </div>
 </section>
 
-<footer class="footer">
-<div class="wrap">
-<span><b style="color:white;font-size:22px">Zupi</b><br>Tu dinero. Tu futuro.</span>
-<span>Prototipo visual · No es un servicio financiero operativo.<br>No recibe solicitudes ni documentos reales.</span>
+<footer>
+<div class="container">
+<strong>ZUUPI</strong>
+<p>Tu dinero. Tu futuro.</p>
+<p>Prototipo de plataforma financiera digital. No se reciben solicitudes ni documentos reales.</p>
 </div>
 </footer>
 
 <script>
-const $=id=>document.getElementById(id);
-const currency=n=>new Intl.NumberFormat('es-DO',{style:'currency',currency:'DOP',maximumFractionDigits:2}).format(n);
-let regStep=0,loanStep=0,submitted=false;
+const $ = id => document.getElementById(id);
 
-function cat(a){
-return a<=10000?['Mini',[3,6]]:a<=20000?['Flex',[3,6,9]]:a<=35000?['Plus',[6,9,12]]:['Max',[9,12,18]]
+const money = n => new Intl.NumberFormat("es-DO",{
+  style:"currency",currency:"DOP"
+}).format(n);
+
+function category(a){
+  if(a<=10000)return ["ZUUPI Mini",[3,6]];
+  if(a<=20000)return ["ZUUPI Flex",[3,6,9]];
+  if(a<=35000)return ["ZUUPI Plus",[6,9,12]];
+  return ["ZUUPI Max",[9,12,18]];
 }
+
 function updateAmount(){
-let a=+$('monto').value,options=cat(a)[1],old=+$('plazo').value;
-$('amountText').textContent=currency(a);
-$('category').textContent='Zupi '+cat(a)[0];
-$('plazo').replaceChildren(...options.map(m=>{
-let o=document.createElement('option');o.value=m;o.textContent=m+' meses';return o
-}));
-$('plazo').value=options.includes(old)?old:options[0];
-calculate()
+  const a=Number($("monto").value);
+  const [name,terms]=category(a);
+  const previous=Number($("plazo").value);
+  $("amountText").textContent=money(a);
+  $("categoria").textContent=name;
+  $("plazo").replaceChildren(...terms.map(n=>{
+    const o=document.createElement("option");
+    o.value=n;
+    o.textContent=n+" meses";
+    return o;
+  }));
+  $("plazo").value=terms.includes(previous)?previous:terms[0];
+  calculate();
 }
-function calculate(){
-let a=+$('monto').value,months=+$('plazo').value,frequency=+$('frecuencia').value,n=months*frequency/12,r=.24/frequency,p=a*r/(1-Math.pow(1+r,-n));
-$('paymentLabel').textContent=frequency===24?'Cuota quincenal estimada':'Cuota mensual estimada';
-$('payment').textContent=currency(p);
-$('capital').textContent=currency(a);
-$('interest').textContent=currency(p*n-a);
-$('total').textContent=currency(p*n)
-}
-$('monto').addEventListener('input',updateAmount);
-$('plazo').addEventListener('change',calculate);
-$('frecuencia').addEventListener('change',calculate);
 
-function showApp(tab){
-['registro','solicitud','estado'].forEach(t=>{
-document.querySelector('[data-tab="'+t+'"]').classList.toggle('active',tab===t);
-$(t==='registro'?'registerCard':t==='solicitud'?'applyCard':'statusCard').classList.toggle('hidden',tab!==t)
-});
-$('app').scrollIntoView({behavior:'smooth',block:'start'})
+function calculate(){
+  const a=Number($("monto").value);
+  const months=Number($("plazo").value);
+  const frequency=Number($("frecuencia").value);
+  const n=months*frequency/12;
+  const r=0.24/frequency;
+  const payment=a*r/(1-Math.pow(1+r,-n));
+  $("cuotaLabel").textContent=frequency===24?
+    "Cuota quincenal estimada":"Cuota mensual estimada";
+  $("cuota").textContent=money(payment);
+  $("capital").textContent=money(a);
+  $("intereses").textContent=money(payment*n-a);
+  $("total").textContent=money(payment*n);
 }
-function progress(id,s,total){
-$(id).innerHTML=Array.from({length:total},(_,i)=>'<i class="'+(i<=s?'done':'')+'"></i>').join('')
+
+$("monto").addEventListener("input",updateAmount);
+$("plazo").addEventListener("change",calculate);
+$("frecuencia").addEventListener("change",calculate);
+
+function openTab(name){
+  ["registro","solicitud","estado"].forEach(t=>{
+    $(t).classList.toggle("hidden",t!==name);
+    document.querySelector('[data-tab="'+t+'"]')
+      .classList.toggle("active",t===name);
+  });
+  $("clientes").scrollIntoView({behavior:"smooth"});
 }
-const reg=[
-['Datos básicos','En una versión real, aquí solicitaríamos nombre y apellidos, fecha de nacimiento y datos de contacto.'],
-['Seguridad','Aquí configuraríamos contraseña segura, verificación del correo o teléfono y autenticación adicional.'],
-['Confirmación','El cliente revisaría sus datos, condiciones y avisos de privacidad antes de crear su cuenta.'],
-['Cuenta de prueba creada','En esta maqueta has completado el recorrido de registro. No se ha creado ninguna cuenta real.']
+
+let regStep=0;
+const regSteps=[
+  ["Datos personales","En el sistema real se solicitarán nombres, apellidos y fecha de nacimiento."],
+  ["Contacto","El cliente proporcionará teléfono y correo electrónico para su verificación."],
+  ["Seguridad","Se configurarán credenciales seguras y autenticación adicional."],
+  ["Confirmación","Se revisarán las condiciones y la información de privacidad."],
+  ["Registro de prueba completado","Has terminado la demostración. No se creó una cuenta real."]
 ];
+
 function renderReg(){
-progress('regProgress',regStep,4);
-$('regBody').innerHTML='<div class="status"><strong>Paso '+(regStep+1)+' de 4 · '+reg[regStep][0]+'</strong><p class="muted">'+reg[regStep][1]+'</p></div>';
-$('regNext').textContent=regStep===3?'Reiniciar':'Continuar →'
+  $("regProgress").innerHTML=regSteps.map((_,i)=>
+    '<span class="'+(i<=regStep?"done":"")+'"></span>'
+  ).join("");
+  $("regBody").innerHTML="<strong>"+regSteps[regStep][0]+
+    "</strong><p>"+regSteps[regStep][1]+"</p>";
+  $("regButton").textContent=regStep===4?"Reiniciar":"Continuar →";
 }
-function regNext(){regStep=regStep===3?0:regStep+1;renderReg()}
-function regBack(){regStep=Math.max(0,regStep-1);renderReg()}
-const loan=[
-['Condiciones del préstamo','Tu solicitud se basaría en el monto y plazo seleccionados en el simulador.'],
-['Situación financiera','El formulario real solicitaría información sobre ingresos, actividad laboral y obligaciones financieras.'],
-['Documento de identidad','El cliente presentaría cédula o documento admitido. Esta demostración no permite subir documentos.'],
-['Verificación biométrica','La aplicación real utilizaría un proveedor de verificación facial y prueba de vida. Esta maqueta no activa la cámara.'],
-['Revisar y enviar','Tras verificar datos y aceptar las condiciones aplicables, la solicitud real se enviaría al equipo de crédito.'],
-['Solicitud de prueba enviada','La solicitud ficticia aparece en “Mis solicitudes”. No se ha enviado nada a Zupi.']
+
+function regNext(){
+  regStep=regStep===4?0:regStep+1;
+  renderReg();
+}
+
+function regBack(){
+  regStep=Math.max(0,regStep-1);
+  renderReg();
+}
+
+let loanStep=0;
+const loanSteps=[
+  ["Seleccionar préstamo","El cliente selecciona el monto y el plazo mediante el simulador."],
+  ["Información económica","Se solicitarán ingresos, actividad laboral y obligaciones financieras."],
+  ["Documento de identidad","El cliente presentará su cédula o documento admitido mediante un sistema seguro."],
+  ["Verificación biométrica","Un proveedor especializado comprobará el rostro y realizará una prueba de vida."],
+  ["Revisión de solicitud","El cliente revisará los datos y aceptará las condiciones correspondientes."],
+  ["Solicitud de prueba enviada","El expediente ficticio queda en evaluación. No se ha enviado información a ningún servidor."]
 ];
+
 function renderLoan(){
-progress('loanProgress',loanStep,6);
-$('loanBody').innerHTML='<div class="status"><strong>Paso '+(loanStep+1)+' de 6 · '+loan[loanStep][0]+'</strong><p class="muted">'+loan[loanStep][1]+'</p></div>';
-$('loanNext').textContent=loanStep===5?'Reiniciar':'Continuar →'
+  $("loanProgress").innerHTML=loanSteps.map((_,i)=>
+    '<span class="'+(i<=loanStep?"done":"")+'"></span>'
+  ).join("");
+  $("loanBody").innerHTML="<strong>"+loanSteps[loanStep][0]+
+    "</strong><p>"+loanSteps[loanStep][1]+"</p>";
+  $("loanButton").textContent=loanStep===5?"Reiniciar":"Continuar →";
 }
+
 function loanNext(){
-if(loanStep===4){
-submitted=true;
-$('statusBody').innerHTML='<strong>Solicitud ZP-DEMO-001 · En evaluación (simulación)</strong><small>Monto: '+currency(+$('monto').value)+' · Objetivo de respuesta: 24–48 horas en el servicio futuro. No se envió información a un servidor.</small>'
+  if(loanStep===4){
+    $("statusBody").innerHTML=
+      "<strong>Solicitud ZUUPI-DEMO-001</strong>"+
+      "<p>Monto: "+money(Number($("monto").value))+"</p>"+
+      "<p>Estado: En evaluación (simulación)</p>"+
+      "<p>Respuesta objetivo: 24–48 horas.</p>"+
+      "<p>No se ha enviado una solicitud real.</p>";
+  }
+  loanStep=loanStep===5?0:loanStep+1;
+  renderLoan();
 }
-loanStep=loanStep===5?0:loanStep+1;
-renderLoan()
+
+function loanBack(){
+  loanStep=Math.max(0,loanStep-1);
+  renderLoan();
 }
-function loanBack(){loanStep=Math.max(0,loanStep-1);renderLoan()}
-updateAmount();renderReg();renderLoan();
+
+updateAmount();
+renderReg();
+renderLoan();
 </script>
 </body>
 </html>
