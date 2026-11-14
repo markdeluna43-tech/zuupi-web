@@ -48,6 +48,18 @@ body.zuupi-authenticated #zuupiDashboard{display:block}
 .dash-only{display:none}body.zuupi-authenticated .dash-only{display:block}
 .dash-section-note{background:#fff7e9;padding:16px;border-radius:14px;color:#6f5433;margin:12px 0}
 @media(max-width:780px){.dash-layout{grid-template-columns:1fr;padding:18px 14px 50px;gap:18px}.dash-menu{position:static;display:flex;overflow:auto;white-space:nowrap;padding:9px}.dash-menu button{flex-shrink:0}.dash-summary{grid-template-columns:1fr 1fr}.dash-stat:last-child{grid-column:1/-1}.dash-actions{gap:9px}.dash-actions button{padding:14px}}
+
+/* ZUUPI v3.3: el espacio privado inicia arriba y muestra solo la vista elegida. */
+#zuupiDashboard #clientes{background:transparent!important;padding:0!important;scroll-margin-top:96px}
+#zuupiDashboard #clientes>.wrap{padding:0!important;max-width:none!important}
+#zuupiDashboard #clientes>.wrap>h2,#zuupiDashboard #clientes>.wrap>p.sub,#zuupiDashboard #clientes .tabs{display:none!important}
+#zuupiDashboard #clientes .two{display:block!important}
+#zuupiDashboard #clientes .two>.panel{max-width:none!important;width:100%!important}
+#zuupiDashboard #clientes .two>.panel.hidden{display:none!important}
+#zuupiDashboard #clientes .two>.panel:not(.hidden){display:block!important}
+#zuupiDashboard #clientes #panel{display:none!important}
+#zuupiDashboard #dashContent[hidden]{display:none!important}
+#zuupiDashboard .dash-main{min-width:0}
 </style>
 </head>
 <body>
@@ -71,7 +83,7 @@ body.zuupi-authenticated #zuupiDashboard{display:block}
   <button type="button" data-dash="ayuda" onclick="dashboardTab('ayuda')">♧ Ayuda</button>
   <button type="button" data-dash="perfil" onclick="dashboardTab('perfil')">◯ Mi perfil</button>
  </aside><div class="dash-main">
-  <h1 class="dash-heading" id="dashTitle">Bienvenido a ZUUPI 👋</h1><p class="dash-sub" id="dashSubtitle">Tu espacio financiero personal. Versión de prueba.</p>
+  <h1 class="dash-heading" id="dashTitle">¡Hola, bienvenido! 👋</h1><p class="dash-sub" id="dashSubtitle">Tu financiamiento, en un solo lugar. Versión de prueba.</p>
   <div id="dashHome" class="dash-only">
    <div class="dash-summary"><div class="dash-stat"><small>Mis solicitudes</small><strong id="dashCount">—</strong></div><div class="dash-stat"><small>En espera</small><strong id="dashWaiting">—</strong></div><div class="dash-stat"><small>Préstamos activos</small><strong>RD$0.00</strong><small>No hay préstamos reales activos</small></div></div>
    <div class="dash-actions"><button onclick="dashboardTab('solicitud')"><span>💜</span>Solicitar préstamo</button><button onclick="dashboardTab('estado')"><span>📋</span>Mis préstamos</button><button onclick="dashboardTab('pagos')"><span>📅</span>Mis pagos</button><button onclick="dashboardTab('ayuda')"><span>💬</span>Ayuda</button></div>
@@ -141,12 +153,12 @@ el("loginForm").addEventListener("submit",async event=>{event.preventDefault();i
 el("panelLogout").addEventListener("click",()=>el("logoutButton").click());
 el("logoutButton").addEventListener("click",async()=>{if(!client)return;const {error}=await client.auth.signOut();if(error)authNotice(friendlyError(error));else await refreshAuth();});
 el("loanForm").addEventListener("submit",async event=>{event.preventDefault();const box=el("loanMessage");if(!client)return box.textContent="No se pudo conectar con Supabase.";const {data:{user},error:userError}=await client.auth.getUser();if(userError||!user){box.textContent="Debes crear una cuenta, confirmar el correo e iniciar sesión antes de enviar.";openTab("registro");return;}await busy(el("loanSubmit"),async()=>{try{const amount=Number(el("monto").value),term=Number(el("plazo").value),rate=Number(el("tasa").value),frequency=Number(el("frecuencia").value);if(!Number.isFinite(amount)||amount<5000||amount>50000||!Number.isInteger(term)||term<3||term>18||!category(amount)[1].includes(term)||!Number.isFinite(rate)||rate<0||rate>100||![12,24].includes(frequency))throw Error("Revisa los valores del simulador.");const {error}=await client.from("loan_applications").insert({user_id:user.id,amount_dop:amount,term_months:term,annual_rate:rate,payments_per_year:frequency,declared_province:el("loanProvince").value,purpose:el("loanPurpose").value});if(error)throw error;box.textContent="Solicitud de prueba enviada correctamente. Puedes consultarla en Mis solicitudes.";el("loanForm").reset();await loadApplications();}catch(error){box.textContent="No se pudo enviar: "+friendlyError(error)+". Comprueba que hayas ejecutado el archivo SQL en Supabase.";}});});
-async function loadApplications(){const box=el("statusBody");box.replaceChildren();const heading=document.createElement("strong"),p=document.createElement("p");box.append(heading,p);if(!client){heading.textContent="Sin conexión";p.textContent="No se cargó Supabase.";return;}const {data:{user},error:userError}=await client.auth.getUser();if(userError||!user){heading.textContent="Inicia sesión";p.textContent="Aquí aparecerán las solicitudes de prueba de tu cuenta.";return;}const {data,error}=await client.from("loan_applications").select("id,created_at,amount_dop,term_months,status").order("created_at",{ascending:false}).limit(30);if(error){heading.textContent="No se pudo consultar el historial";p.textContent="Comprueba la tabla y sus políticas en Supabase: "+friendlyError(error);return;}el("panelTotal").textContent=String(data.length);el("panelPending").textContent="Pendientes: "+data.filter(a=>a.status==="pending").length;el("panelLatest").textContent=data.length?"Última solicitud: "+money(data[0].amount_dop)+" · "+statusLabel(data[0].status):"Todavía no tienes solicitudes de prueba.";if(!data.length){heading.textContent="Sin solicitudes";p.textContent="Todavía no has enviado solicitudes de prueba.";return;}heading.textContent="Tus solicitudes de prueba";p.textContent="Mostrando las últimas "+data.length+" solicitudes.";for(const app of data){const item=document.createElement("p");item.style.borderTop="1px solid #dfd1ef";item.style.paddingTop="10px";const date=new Date(app.created_at).toLocaleString("es-DO");item.textContent=money(app.amount_dop)+" · "+app.term_months+" meses · "+statusLabel(app.status)+" · "+date;box.append(item);}}
+async function loadApplications(){const box=el("statusBody");box.replaceChildren();const heading=document.createElement("strong"),p=document.createElement("p");box.append(heading,p);if(!client){heading.textContent="Sin conexión";p.textContent="No se cargó Supabase.";return;}const {data:{user},error:userError}=await client.auth.getUser();if(userError||!user){heading.textContent="Inicia sesión";p.textContent="Aquí aparecerán las solicitudes de prueba de tu cuenta.";return;}const {data,error}=await client.from("loan_applications").select("id,created_at,amount_dop,term_months,status").order("created_at",{ascending:false}).limit(30);if(error){heading.textContent="No se pudo consultar el historial";p.textContent="Comprueba la tabla y sus políticas en Supabase: "+friendlyError(error);return;}el("panelTotal").textContent=String(data.length);el("panelPending").textContent="Pendientes: "+data.filter(a=>a.status==="pending").length;el("panelLatest").textContent=data.length?"Última solicitud: "+money(data[0].amount_dop)+" · "+statusLabel(data[0].status):"Todavía no tienes solicitudes de prueba.";if(!data.length){heading.textContent="Sin solicitudes";p.textContent="Todavía no has enviado solicitudes de prueba.";return;}heading.textContent="Tus solicitudes de prueba";p.textContent="Mostrando las últimas "+data.length+" solicitudes.";for(const app of data){const item=document.createElement("p");item.style.borderTop="1px solid #dfd1ef";item.style.paddingTop="10px";const date=new Date(app.created_at).toLocaleString("es-DO");item.textContent="Consulta #"+String(app.id).slice(0,8).toUpperCase()+" · "+money(app.amount_dop)+" · "+app.term_months+" meses · "+statusLabel(app.status)+" · "+date;box.append(item);}}
 
 // Interfaz privada: reutiliza los formularios originales, sin duplicar ni reemplazar sus funciones.
 function dashboardTab(tab){
  if(!currentSession)return;
- const names={panel:['Mi panel','Resumen de tu cuenta'],solicitud:['Solicitar préstamo','Completa una solicitud de prueba'],estado:['Mis préstamos','Consulta el estado de tus solicitudes'],pagos:['Mis pagos','Información de pagos'],ayuda:['Ayuda','Centro de atención'],perfil:['Mi perfil','Información de tu cuenta']};
+ const names={panel:['¡Hola, bienvenido! 👋','Tu financiamiento, en un solo lugar.'],solicitud:['Solicitar préstamo','Completa una solicitud de prueba'],estado:['Mis préstamos','Consulta el estado de tus solicitudes'],pagos:['Mis pagos','Información de pagos'],ayuda:['Ayuda','Centro de atención'],perfil:['Mi perfil','Información de tu cuenta']};
  const [title,subtitle]=names[tab]||names.panel;
  el('dashTitle').textContent=title;el('dashSubtitle').textContent=subtitle;
  document.querySelectorAll('[data-dash]').forEach(b=>b.classList.toggle('active',b.dataset.dash===tab));
@@ -155,15 +167,32 @@ function dashboardTab(tab){
  if(tab==='pagos')extra.innerHTML='<div class="panel"><h3>Mis pagos</h3><p class="dash-section-note">Todavía no hay préstamos reales ni un sistema de pagos habilitado. No se generan cuotas ni desembolsos.</p></div>';
  if(tab==='ayuda')extra.innerHTML='<div class="panel"><h3>¿Necesitas ayuda?</h3><p>La plataforma está en pruebas. Los canales de atención todavía están pendientes de habilitarse.</p><p>No compartas contraseñas ni documentos personales.</p></div>';
  if(tab==='perfil'){extra.replaceChildren();const card=document.createElement('div');card.className='panel';const heading=document.createElement('h3');heading.textContent='Mi perfil';const info=document.createElement('p');info.textContent='Correo: '+(currentSession.user.email||'Sin correo');card.append(heading,info);extra.append(card);}
- el('dashContent').hidden=extra.hidden===false;
- if(['panel','solicitud','estado'].includes(tab))openTab(tab,false);
- if(tab==='panel'){el('dashCount').textContent=el('panelTotal').textContent;el('dashWaiting').textContent=(el('panelPending').textContent||'').replace('Pendientes: ','');}
+ const content=el('dashContent');
+ const needsForm=tab==='solicitud'||tab==='estado';
+ content.hidden=!needsForm;
+ if(needsForm){
+   const section=el('clientes');
+   if(section.parentElement!==content)content.append(section);
+   openTab(tab,false);
+ }
+ if(tab==='panel'){
+   loadApplications().then(()=>{
+     el('dashCount').textContent=el('panelTotal').textContent;
+     el('dashWaiting').textContent=(el('panelPending').textContent||'').replace('Pendientes: ','');
+   });
+ }
  window.scrollTo({top:0,behavior:'instant'});
 }
 function toggleDashboard(logged){
  const section=el('clientes'),main=document.querySelector('main'),contact=el('contacto');
- if(logged){if(section.parentElement!==el('dashContent'))el('dashContent').append(section);document.body.classList.add('zuupi-authenticated');dashboardTab('panel');}
- else{document.body.classList.remove('zuupi-authenticated');if(section.parentElement!==main)main.insertBefore(section,contact);window.scrollTo({top:0,behavior:'instant'});}
+ if(logged){
+   document.body.classList.add('zuupi-authenticated');
+   dashboardTab('panel');
+ }else{
+   document.body.classList.remove('zuupi-authenticated');
+   if(section.parentElement!==main)main.insertBefore(section,contact);
+   window.scrollTo({top:0,behavior:'instant'});
+ }
 }
 
 if(client){client.auth.onAuthStateChange(()=>{setTimeout(()=>{refreshAuth().catch(console.error);},0);});refreshAuth();}else authNotice("Error al cargar la biblioteca de Supabase. Comprueba tu conexión.");
